@@ -31,9 +31,9 @@ jobs:
         run: |
           pip install python-frontmatter markdown pyyaml
 
-      - name: Build index
+      - name: Build site
         run: |
-          python scripts/build_index.py
+          python scripts/build.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -49,6 +49,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

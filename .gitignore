@@ -35,3 +35,5 @@ site/data/graph.json
 models/
 *.bin
 *.onnx
+
+.agentstalk

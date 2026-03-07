@@ -2,6 +2,8 @@
 class SociologyNotes {
     constructor() {
         this.articles = [];
+        this.concepts = [];
+        this.authors = [];
         this.graphData = { nodes: [], links: [] };
         this.searchIndex = null;
         this.currentView = 'home';
@@ -13,14 +15,31 @@ class SociologyNotes {
         await this.loadData();
         this.buildSearchIndex();
         this.setupEventListeners();
-        this.renderHome();
-        this.renderTagsCloud();
+        this.handleUrlParams();
         this.setupPyScriptLoader();
+    }
+
+    // 处理 URL 参数
+    handleUrlParams() {
+        const params = new URLSearchParams(window.location.search);
+        
+        if (params.has('concept')) {
+            this.filterByConcept(params.get('concept'));
+        } else if (params.has('author')) {
+            this.filterByAuthor(params.get('author'));
+        } else if (params.has('tag')) {
+            this.filterByTag(params.get('tag'));
+        } else if (params.has('view')) {
+            this.switchView(params.get('view'));
+        } else {
+            this.renderHome();
+        }
+        
+        this.renderTagsCloud();
     }
 
     // 设置 PyScript 加载提示
     setupPyScriptLoader() {
-        // 监听 PyScript 加载事件
         document.addEventListener('py:ready', () => {
             const loader = document.getElementById('pyscript-loader');
             if (loader) {
@@ -36,9 +55,11 @@ class SociologyNotes {
             const response = await fetch('data/index.json');
             const data = await response.json();
             this.articles = data.articles || [];
+            this.concepts = data.concepts?.concepts || [];
+            this.authors = data.authors?.authors || [];
             this.graphData = data.graph || { nodes: [], links: [] };
         } catch (e) {
-            console.warn('使用示例数据');
+            console.warn('加载数据失败:', e);
             this.loadSampleData();
         }
     }
@@ -54,8 +75,8 @@ class SociologyNotes {
                 tags: ['基层治理', '共谋', '行政发包制'],
                 category: 'papers',
                 summary: '探讨中国政府内部上下级政府间在应对上级政策指令时采取共谋行为的制度逻辑',
-                content: '...',
-                mentions: ['周雪光', '渠敬东', '项目制', '行政发包制']
+                html_path: 'articles/zhou-2008-conspiracy.html',
+                concepts: ['行政发包制', '共谋', '委托代理']
             },
             {
                 id: 'qu-2012-project',
@@ -65,8 +86,8 @@ class SociologyNotes {
                 tags: ['项目制', '国家治理', '财政体制'],
                 category: 'papers',
                 summary: '分析项目制作为新型国家治理体制的运行机制及其社会影响',
-                content: '...',
-                mentions: ['渠敬东', '周雪光', '项目制', '行政发包制']
+                html_path: 'articles/qu-2012-project.html',
+                concepts: ['项目制', '财政体制', '国家治理']
             },
             {
                 id: 'concept-contract',
@@ -76,8 +97,19 @@ class SociologyNotes {
                 tags: ['国家治理', '央地关系', '行政体制'],
                 category: 'concepts',
                 summary: '理解中国政府间关系的核心概念，描述中央向地方逐级发包行政任务的治理模式',
-                content: '...',
-                mentions: ['周黎安', '周雪光', '行政发包制']
+                html_path: 'articles/concept-contract.html',
+                concepts: ['行政发包制', '央地关系', '委托代理']
+            },
+            {
+                id: '渠敬东_周飞舟_应星_2009_从总体支配到技术治理',
+                title: '从总体支配到技术治理——基于中国30年改革经验的社会学分析',
+                authors: ['渠敬东', '周飞舟', '应星'],
+                year: 2009,
+                tags: ['技术治理', '国家治理', '财政改革', 'TINA'],
+                category: 'papers',
+                summary: '分析改革开放30年中国国家治理从总体支配向技术治理转型的机制、成效与内在张力',
+                html_path: 'articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html',
+                concepts: ['技术治理', '总体支配', '程序技术', '经营技术', '分税制', '土地财政']
             }
         ];
         
@@ -130,20 +162,18 @@ class SociologyNotes {
                 links.push({ source: articleId, target: tagId, type: 'tagged' });
             });
 
-            article.mentions?.forEach(mention => {
-                if (mention !== article.title) {
-                    const mentionedArticle = this.articles.find(a => 
-                        a.title === mention || a.authors?.includes(mention)
-                    );
-                    if (mentionedArticle) {
-                        const mentionedId = `article-${mentionedArticle.id}`;
-                        links.push({ 
-                            source: articleId, 
-                            target: mentionedId, 
-                            type: 'mentions' 
-                        });
-                    }
+            article.concepts?.forEach(concept => {
+                const conceptId = `concept-${concept}`;
+                if (!nodeSet.has(conceptId)) {
+                    nodes.push({
+                        id: conceptId,
+                        name: concept,
+                        type: 'concept',
+                        group: 4
+                    });
+                    nodeSet.add(conceptId);
                 }
+                links.push({ source: articleId, target: conceptId, type: 'has_concept' });
             });
         });
 
@@ -152,13 +182,15 @@ class SociologyNotes {
 
     // 构建搜索索引
     buildSearchIndex() {
+        if (!this.articles.length) return;
+        
         this.searchIndex = lunr(function() {
             this.ref('id');
             this.field('title', { boost: 10 });
             this.field('authors', { boost: 5 });
             this.field('tags', { boost: 5 });
             this.field('summary');
-            this.field('content');
+            this.field('concepts', { boost: 3 });
 
             this.articles.forEach(article => {
                 this.add({
@@ -167,7 +199,7 @@ class SociologyNotes {
                     authors: article.authors?.join(' '),
                     tags: article.tags?.join(' '),
                     summary: article.summary,
-                    content: article.content?.substring(0, 1000)
+                    concepts: article.concepts?.join(' ')
                 });
             });
         });
@@ -180,6 +212,9 @@ class SociologyNotes {
                 e.preventDefault();
                 const view = item.dataset.view;
                 this.switchView(view);
+                
+                // 清除 URL 参数
+                window.history.pushState({}, '', window.location.pathname);
             });
         });
 
@@ -217,6 +252,8 @@ class SociologyNotes {
 
     // 切换视图
     switchView(view) {
+        this.currentView = view;
+        
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.remove('active');
             if (item.dataset.view === view) item.classList.add('active');
@@ -235,7 +272,7 @@ class SociologyNotes {
                 this.renderCategory('books');
                 break;
             case 'concepts':
-                this.renderCategory('concepts');
+                this.renderConcepts();
                 break;
             case 'graph':
                 this.renderGraph();
@@ -267,6 +304,10 @@ class SociologyNotes {
                         <span class="stat-number">${this.articles.filter(a => a.category === 'concepts').length}</span>
                         <span class="stat-label">概念梳理</span>
                     </div>
+                    <div class="stat-item">
+                        <span class="stat-number">${this.concepts.length}</span>
+                        <span class="stat-label">核心概念</span>
+                    </div>
                 </div>
             </div>
             <h3>📝 最近更新</h3>
@@ -284,6 +325,7 @@ class SociologyNotes {
         const titles = { papers: '📄 论文笔记', books: '📖 书籍笔记', concepts: '💡 概念梳理' };
         const html = `
             <h2>${titles[category]}</h2>
+            <p>共 ${filtered.length} 篇文章</p>
             <div class="list-view">
                 ${filtered.map(article => this.createCardHTML(article)).join('')}
             </div>
@@ -292,24 +334,180 @@ class SociologyNotes {
         this.attachCardListeners();
     }
 
+    // 渲染概念梳理页面
+    renderConcepts() {
+        if (!this.concepts || !this.concepts.length) {
+            document.getElementById('content').innerHTML = `
+                <h2>💡 概念梳理</h2>
+                <p>暂无概念数据，请先运行构建脚本。</p>
+            `;
+            return;
+        }
+
+        // 按文章数量排序
+        const sortedConcepts = [...this.concepts].sort((a, b) => b.article_count - a.article_count);
+        
+        const html = `
+            <h2>💡 概念梳理</h2>
+            <p>共提取 ${this.concepts.length} 个核心概念，点击概念查看相关文章。</p>
+            
+            <div class="concepts-cloud">
+                ${sortedConcepts.map(c => `
+                    <a href="?concept=${encodeURIComponent(c.concept)}" class="concept-tag" 
+                       style="font-size: ${Math.max(0.8, Math.min(1.5, c.article_count / 3))}em;">
+                        ${c.concept}
+                        <span class="count">${c.article_count}</span>
+                    </a>
+                `).join('')}
+            </div>
+            
+            <h3>📚 概念详细列表</h3>
+            <div class="concepts-list">
+                ${sortedConcepts.map(c => `
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <h4 class="concept-name">
+                                <a href="?concept=${encodeURIComponent(c.concept)}">${c.concept}</a>
+                            </h4>
+                            <span class="concept-meta">出现在 ${c.article_count} 篇文章中</span>
+                        </div>
+                        <div class="concept-articles">
+                            ${c.articles.slice(0, 3).map(a => `
+                                <a href="${a.html_path}" class="concept-article-link">
+                                    ${a.title} ${a.year ? `(${a.year})` : ''}
+                                </a>
+                            `).join(', ')}
+                            ${c.articles.length > 3 ? ` 等` : ''}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        
+        document.getElementById('content').innerHTML = html;
+    }
+
+    // 按概念筛选
+    filterByConcept(concept) {
+        const conceptData = this.concepts.find(c => c.concept === concept);
+        if (!conceptData) {
+            document.getElementById('content').innerHTML = `
+                <h2>💡 概念: ${concept}</h2>
+                <p>未找到相关概念。</p>
+            `;
+            return;
+        }
+
+        const html = `
+            <h2>💡 概念: ${concept}</h2>
+            <p>该概念出现在 ${conceptData.article_count} 篇文章中</p>
+            
+            <div class="filter-info">
+                <span>涉及作者: ${[...new Set(conceptData.articles.flatMap(a => a.authors))].join(', ')}</span>
+            </div>
+            
+            <div class="list-view">
+                ${conceptData.articles.map(a => this.createCardHTML({
+                    ...a,
+                    id: a.id,
+                    title: a.title,
+                    authors: a.authors,
+                    year: a.year,
+                    category: a.category,
+                    html_path: a.html_path
+                })).join('')}
+            </div>
+        `;
+        
+        document.getElementById('content').innerHTML = html;
+        this.attachCardListeners();
+    }
+
+    // 按作者筛选
+    filterByAuthor(author) {
+        const authorData = this.authors.find(a => a.name === author);
+        if (!authorData) {
+            // 从文章中查找
+            const articles = this.articles.filter(a => a.authors?.includes(author));
+            if (articles.length === 0) {
+                document.getElementById('content').innerHTML = `
+                    <h2>👤 作者: ${author}</h2>
+                    <p>未找到相关作者。</p>
+                `;
+                return;
+            }
+            
+            const html = `
+                <h2>👤 作者: ${author}</h2>
+                <p>共 ${articles.length} 篇文章</p>
+                <div class="list-view">
+                    ${articles.map(a => this.createCardHTML(a)).join('')}
+                </div>
+            `;
+            document.getElementById('content').innerHTML = html;
+            this.attachCardListeners();
+            return;
+        }
+
+        const html = `
+            <h2>👤 作者: ${author}</h2>
+            <p>共 ${authorData.article_count} 篇文章</p>
+            <div class="list-view">
+                ${authorData.articles.map(a => this.createCardHTML({
+                    ...a,
+                    id: a.id,
+                    title: a.title,
+                    authors: [author],
+                    year: a.year,
+                    category: a.category,
+                    html_path: a.html_path
+                })).join('')}
+            </div>
+        `;
+        
+        document.getElementById('content').innerHTML = html;
+        this.attachCardListeners();
+    }
+
+    // 按标签筛选
+    filterByTag(tag) {
+        const filtered = this.articles.filter(a => a.tags?.includes(tag));
+        
+        const html = `
+            <h2>🏷️ 标签: ${tag}</h2>
+            <p>共 ${filtered.length} 篇文章</p>
+            <div class="list-view">
+                ${filtered.map(article => this.createCardHTML(article)).join('')}
+            </div>
+        `;
+        
+        document.getElementById('content').innerHTML = html;
+        this.attachCardListeners();
+    }
+
     // 创建卡片HTML
     createCardHTML(article) {
         const typeLabels = { papers: '论文', books: '书籍', concepts: '概念' };
+        const categoryClass = article.category || 'papers';
+        
         return `
             <div class="card" data-id="${article.id}">
                 <div class="card-header">
-                    <span class="card-type ${article.category}">${typeLabels[article.category]}</span>
+                    <span class="card-type ${categoryClass}">${typeLabels[categoryClass] || '笔记'}</span>
                     <span class="card-year">${article.year || ''}</span>
                 </div>
-                <h3>${article.title}</h3>
+                <h3><a href="${article.html_path || '#'}">${article.title}</a></h3>
                 <div class="card-meta">
                     ${article.authors?.join(', ') || ''}
-                    ${article.venue ? ` · ${article.venue}` : ''}
                 </div>
-                <div class="card-summary">${article.summary || article.content?.substring(0, 150) + '...'}</div>
-                <div class="card-tags">
-                    ${article.tags?.map(tag => `<span class="card-tag">${tag}</span>`).join('') || ''}
-                </div>
+                <div class="card-summary">${article.summary || ''}</div>
+                ${article.concepts?.length ? `
+                    <div class="card-concepts">
+                        ${article.concepts.slice(0, 5).map(c => 
+                            `<a href="?concept=${encodeURIComponent(c)}" class="concept-mini">${c}</a>`
+                        ).join('')}
+                    </div>
+                ` : ''}
             </div>
         `;
     }
@@ -317,78 +515,16 @@ class SociologyNotes {
     // 附加卡片点击事件
     attachCardListeners() {
         document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('click', () => {
-                const article = this.articles.find(a => a.id === card.dataset.id);
-                if (article) this.showArticle(article);
-            });
-        });
-    }
-
-    // 显示文章详情
-    showArticle(article) {
-        const modal = document.getElementById('article-modal');
-        const content = document.getElementById('article-content');
-        
-        // 处理交互式 Markdown 语法
-        let processedContent = article.content || '';
-        
-        // 使用 MarkdownInteractive 解析扩展语法
-        if (this.mdParser) {
-            processedContent = this.mdParser.parse(processedContent);
-        }
-        
-        // 处理 @ 提及
-        processedContent = processedContent.replace(/@([^\s@,，。.!！?？]+)/g, (match, name) => {
-            return `<a href="#" class="mention-link" data-mention="${name}">@${name}</a>`;
-        });
-
-        content.innerHTML = `
-            <header class="article-header">
-                <span class="card-type ${article.category}">${article.category}</span>
-                <h1>${article.title}</h1>
-                <div class="article-meta">
-                    ${article.authors?.join(', ') ? `<span>作者: ${article.authors.join(', ')}</span>` : ''}
-                    ${article.year ? `<span>年份: ${article.year}</span>` : ''}
-                    ${article.venue ? `<span>来源: ${article.venue}</span>` : ''}
-                </div>
-            </header>
-            <div class="article-body">
-                ${marked.parse(processedContent || article.summary || '暂无内容')}
-            </div>
-            <div class="article-footer">
-                ${article.tags?.length ? `
-                    <div class="article-tags">
-                        <strong>标签:</strong>
-                        ${article.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
-                    </div>
-                ` : ''}
-            </div>
-        `;
-
-        // 处理提及链接点击
-        content.querySelectorAll('.mention-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const mention = link.dataset.mention;
-                const mentionedArticle = this.articles.find(a => 
-                    a.title === mention || a.authors?.includes(mention)
-                );
-                if (mentionedArticle) {
-                    this.showArticle(mentionedArticle);
+            card.addEventListener('click', (e) => {
+                // 如果点击的是链接，让链接自己处理
+                if (e.target.tagName === 'A') return;
+                
+                const link = card.querySelector('a');
+                if (link) {
+                    window.location.href = link.href;
                 }
             });
         });
-
-        modal.style.display = 'block';
-        
-        // 初始化图表（如果有）
-        setTimeout(() => {
-            content.querySelectorAll('chart-renderer').forEach(chart => {
-                if (chart.drawChart) {
-                    chart.drawChart();
-                }
-            });
-        }, 100);
     }
 
     // 渲染标签云
@@ -405,22 +541,37 @@ class SociologyNotes {
             .slice(0, 15);
 
         const container = document.querySelector('.tags-list');
+        if (!container) return;
+        
         container.innerHTML = sortedTags.map(([tag, count]) => 
-            `<span class="tag" data-tag="${tag}">${tag} (${count})</span>`
+            `<a href="?tag=${encodeURIComponent(tag)}" class="tag" data-tag="${tag}">${tag} (${count})</a>`
         ).join('');
-
-        container.querySelectorAll('.tag').forEach(tagEl => {
-            tagEl.addEventListener('click', () => {
-                document.getElementById('search-input').value = tagEl.dataset.tag;
-                this.handleSearch(tagEl.dataset.tag);
-            });
-        });
     }
 
     // 搜索处理
     handleSearch(query) {
         if (!query.trim()) {
             this.renderHome();
+            return;
+        }
+
+        if (!this.searchIndex) {
+            // 简单搜索
+            const matched = this.articles.filter(a => 
+                a.title.includes(query) || 
+                a.summary?.includes(query) ||
+                a.authors?.some(author => author.includes(query))
+            );
+            
+            const html = `
+                <h2>🔍 搜索结果: "${query}"</h2>
+                <p>找到 ${matched.length} 篇相关文章</p>
+                <div class="list-view">
+                    ${matched.map(a => this.createCardHTML(a)).join('')}
+                </div>
+            `;
+            document.getElementById('content').innerHTML = html;
+            this.attachCardListeners();
             return;
         }
 
@@ -459,7 +610,7 @@ class SociologyNotes {
         }
 
         const matched = this.articles.filter(article => {
-            const text = `${article.title} ${article.summary} ${article.tags?.join(' ')}`.toLowerCase();
+            const text = `${article.title} ${article.summary} ${article.tags?.join(' ')} ${article.concepts?.join(' ')}`.toLowerCase();
             return relatedTerms.some(term => text.includes(term.toLowerCase()));
         });
 
@@ -480,6 +631,8 @@ class SociologyNotes {
     // 渲染脑图
     renderGraph() {
         const container = document.getElementById('graph-container');
+        if (!container) return;
+        
         container.innerHTML = '';
 
         const width = container.clientWidth;
@@ -495,7 +648,8 @@ class SociologyNotes {
             books: '#9b59b6',
             concepts: '#2ecc71',
             author: '#f39c12',
-            tag: '#e74c3c'
+            tag: '#e74c3c',
+            concept: '#1abc9c'
         };
 
         const g = svg.append('g');
@@ -544,7 +698,7 @@ class SociologyNotes {
                 }));
 
         node.append('circle')
-            .attr('r', d => d.type === 'author' ? 8 : 12)
+            .attr('r', d => d.type === 'author' || d.type === 'concept' ? 8 : 12)
             .attr('fill', d => colorMap[d.type] || '#999')
             .attr('stroke', '#fff')
             .attr('stroke-width', 2)
@@ -559,9 +713,15 @@ class SociologyNotes {
             .style('pointer-events', 'none');
 
         node.on('click', (event, d) => {
-            if (d.type !== 'author' && d.type !== 'tag') {
+            if (d.type === 'author') {
+                window.location.href = `?author=${encodeURIComponent(d.name)}`;
+            } else if (d.type === 'concept') {
+                window.location.href = `?concept=${encodeURIComponent(d.name.replace('concept-', ''))}`;
+            } else if (d.type !== 'tag') {
                 const article = this.articles.find(a => `article-${a.id}` === d.id);
-                if (article) this.showArticle(article);
+                if (article && article.html_path) {
+                    window.location.href = article.html_path;
+                }
             }
         });
 
@@ -575,17 +735,23 @@ class SociologyNotes {
             node.attr('transform', d => `translate(${d.x},${d.y})`);
         });
 
-        document.getElementById('reset-zoom').addEventListener('click', () => {
-            svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity);
-        });
+        const resetBtn = document.getElementById('reset-zoom');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity);
+            });
+        }
 
-        document.getElementById('graph-search').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            node.selectAll('circle')
-                .attr('opacity', d => 
-                    !term || d.name.toLowerCase().includes(term) ? 1 : 0.2
-                );
-        });
+        const searchInput = document.getElementById('graph-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                node.selectAll('circle')
+                    .attr('opacity', d => 
+                        !term || d.name.toLowerCase().includes(term) ? 1 : 0.2
+                    );
+            });
+        }
     }
 
     // 渲染关于页面
@@ -601,6 +767,7 @@ class SociologyNotes {
                     <li><strong>语义搜索</strong> - 基于概念的智能匹配</li>
                     <li><strong>知识脑图</strong> - 可视化文章关联</li>
                     <li><strong>@ 关联</strong> - 文章间相互引用跳转</li>
+                    <li><strong>概念梳理</strong> - 自动提取文章中的核心概念</li>
                     <li><strong>交互式代码</strong> - 运行 Python 复现论文分析</li>
                     <li><strong>参数滑块</strong> - 动态调整模型参数</li>
                 </ul>
