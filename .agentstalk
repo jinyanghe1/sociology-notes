@@ -1,0 +1,8 @@
+
+### [2026-03-07 16:57:46 +0800] before major edit
+- Request/Goal: 完成 paper-notes skill 的正式内容编写，满足多轮深读、审稿人视角追问、总结写入目标路径。
+- Changes: 计划重写 ~/.codex/skills/paper-notes/SKILL.md；生成 agents/openai.yaml；必要时增加 references 模板。
+- Implemented: 已完成骨架初始化并确认当前内容为模板占位。
+- Validation: 通过 ls/sed/find 确认目录状态。
+- Next Steps: 写入正式 skill 内容；生成 UI metadata；运行 quick_validate。
+- Risks/Notes: 写入全局技能目录需要提权执行。
