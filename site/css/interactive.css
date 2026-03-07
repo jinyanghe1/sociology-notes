@@ -1,0 +1,502 @@
+/* ========================================
+   交互式组件样式
+   ======================================== */
+
+/* PyScript 加载器 */
+.pyscript-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loader-content {
+    text-align: center;
+    color: #fff;
+}
+
+.loader-content .spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   代码运行组件
+   ======================================== */
+.code-runner {
+    margin: 20px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.code-label {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.code-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.code-actions button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.btn-run {
+    background: #28a745;
+    color: #fff;
+}
+
+.btn-run:hover {
+    background: #218838;
+}
+
+.btn-reset {
+    background: #6c757d;
+    color: #fff;
+}
+
+.btn-reset:hover {
+    background: #5a6268;
+}
+
+.code-editor {
+    position: relative;
+}
+
+.code-textarea {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    border: none;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    resize: vertical;
+    background: #fafafa;
+    tab-size: 4;
+}
+
+.code-textarea:focus {
+    outline: none;
+    background: #fff;
+}
+
+.code-output {
+    border-top: 1px solid #e0e0e0;
+    background: #f8f9fa;
+}
+
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    background: #e9ecef;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.btn-clear {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.btn-clear:hover {
+    color: #333;
+}
+
+.output-content {
+    padding: 15px;
+    margin: 0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.output-content.error {
+    color: #dc3545;
+    background: #f8d7da;
+}
+
+.pyscript-loading {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+}
+
+.pyscript-loading .spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* ========================================
+   参数滑块组件
+   ======================================== */
+.param-slider {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.slider-label {
+    font-weight: 500;
+    color: #333;
+}
+
+.slider-value {
+    font-family: 'Consolas', monospace;
+    font-size: 0.9rem;
+    color: #3498db;
+    font-weight: bold;
+}
+
+.slider-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.slider-min,
+.slider-max {
+    font-size: 0.8rem;
+    color: #666;
+    min-width: 30px;
+    text-align: center;
+}
+
+.slider-input {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+}
+
+.slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #3498db;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+    background: #2980b9;
+    transform: scale(1.1);
+}
+
+.slider-input::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #3498db;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.slider-description {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* 滑块组 */
+.slider-group {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.group-header h4 {
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.group-actions {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.btn-reset-all {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.btn-reset-all:hover {
+    background: #f5f5f5;
+}
+
+/* ========================================
+   图表渲染组件
+   ======================================== */
+.chart-container {
+    margin: 20px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.chart-title {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.chart-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.chart-actions button {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.chart-actions button:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.chart-plot {
+    min-height: 300px;
+}
+
+/* ========================================
+   数据表格组件
+   ======================================== */
+.data-table-container {
+    margin: 20px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.table-filters {
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.filter-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.filter-input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.data-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+}
+
+.data-table th.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.data-table th.sortable:hover {
+    background: #e9ecef;
+}
+
+.sort-icon {
+    margin-left: 5px;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.data-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.data-table td {
+    color: #555;
+}
+
+.error-cell {
+    text-align: center;
+    color: #dc3545;
+    padding: 30px;
+}
+
+.table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.table-pagination {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.table-pagination button {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.table-pagination button:hover:not(:disabled) {
+    background: #f5f5f5;
+}
+
+.table-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   文章中的交互元素
+   ======================================== */
+#article-content code-runner,
+#article-content param-slider,
+#article-content chart-renderer,
+#article-content data-table {
+    margin: 20px 0;
+}
+
+/* 输出中的图表 */
+.output-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 代码高亮（简单版） */
+.code-textarea {
+    color: #333;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .code-actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .slider-control {
+        flex-wrap: wrap;
+    }
+    
+    .chart-header,
+    .table-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}

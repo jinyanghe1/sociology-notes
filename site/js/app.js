@@ -5,6 +5,7 @@ class SociologyNotes {
         this.graphData = { nodes: [], links: [] };
         this.searchIndex = null;
         this.currentView = 'home';
+        this.mdParser = new MarkdownInteractive();
         this.init();
     }
 
@@ -14,12 +15,24 @@ class SociologyNotes {
         this.setupEventListeners();
         this.renderHome();
         this.renderTagsCloud();
+        this.setupPyScriptLoader();
+    }
+
+    // 设置 PyScript 加载提示
+    setupPyScriptLoader() {
+        // 监听 PyScript 加载事件
+        document.addEventListener('py:ready', () => {
+            const loader = document.getElementById('pyscript-loader');
+            if (loader) {
+                loader.style.display = 'none';
+            }
+            window.pyscriptLoaded = true;
+        });
     }
 
     // 加载数据
     async loadData() {
         try {
-            // 从构建的索引文件加载
             const response = await fetch('data/index.json');
             const data = await response.json();
             this.articles = data.articles || [];
@@ -78,7 +91,6 @@ class SociologyNotes {
         const nodeSet = new Set();
 
         this.articles.forEach(article => {
-            // 添加文章节点
             const articleId = `article-${article.id}`;
             if (!nodeSet.has(articleId)) {
                 nodes.push({
@@ -90,7 +102,6 @@ class SociologyNotes {
                 nodeSet.add(articleId);
             }
 
-            // 添加作者节点和链接
             article.authors?.forEach(author => {
                 const authorId = `author-${author}`;
                 if (!nodeSet.has(authorId)) {
@@ -105,7 +116,6 @@ class SociologyNotes {
                 links.push({ source: authorId, target: articleId, type: 'authored' });
             });
 
-            // 添加标签节点和链接
             article.tags?.forEach(tag => {
                 const tagId = `tag-${tag}`;
                 if (!nodeSet.has(tagId)) {
@@ -120,7 +130,6 @@ class SociologyNotes {
                 links.push({ source: articleId, target: tagId, type: 'tagged' });
             });
 
-            // 添加提及关系
             article.mentions?.forEach(mention => {
                 if (mention !== article.title) {
                     const mentionedArticle = this.articles.find(a => 
@@ -166,7 +175,6 @@ class SociologyNotes {
 
     // 设置事件监听
     setupEventListeners() {
-        // 导航
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -175,7 +183,6 @@ class SociologyNotes {
             });
         });
 
-        // 搜索
         const searchInput = document.getElementById('search-input');
         let searchTimeout;
         searchInput.addEventListener('input', (e) => {
@@ -185,12 +192,10 @@ class SociologyNotes {
             }, 300);
         });
 
-        // 语义搜索按钮
         document.getElementById('semantic-search-btn').addEventListener('click', () => {
             this.handleSemanticSearch(searchInput.value);
         });
 
-        // 视图切换
         document.querySelectorAll('.view-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
@@ -199,12 +204,10 @@ class SociologyNotes {
             });
         });
 
-        // 关闭模态框
         document.querySelector('.close-btn').addEventListener('click', () => {
             document.getElementById('article-modal').style.display = 'none';
         });
 
-        // 点击模态框外部关闭
         document.getElementById('article-modal').addEventListener('click', (e) => {
             if (e.target === e.currentTarget) {
                 document.getElementById('article-modal').style.display = 'none';
@@ -250,6 +253,7 @@ class SociologyNotes {
             <div class="welcome-section">
                 <h2>👋 欢迎</h2>
                 <p>这里是我的社会学学习笔记，包含论文、书籍和概念梳理。</p>
+                <p>💡 支持交互式代码运行：在阅读定量分析论文时，可以运行 Python 代码复现分析过程。</p>
                 <div class="stats">
                     <div class="stat-item">
                         <span class="stat-number">${this.articles.filter(a => a.category === 'papers').length}</span>
@@ -325,13 +329,18 @@ class SociologyNotes {
         const modal = document.getElementById('article-modal');
         const content = document.getElementById('article-content');
         
-        // 处理 @ 提及转换为链接
+        // 处理交互式 Markdown 语法
         let processedContent = article.content || '';
-        if (processedContent) {
-            processedContent = processedContent.replace(/@([^\s@,，。.!！?？]+)/g, (match, name) => {
-                return `<a href="#" class="mention-link" data-mention="${name}">@${name}</a>`;
-            });
+        
+        // 使用 MarkdownInteractive 解析扩展语法
+        if (this.mdParser) {
+            processedContent = this.mdParser.parse(processedContent);
         }
+        
+        // 处理 @ 提及
+        processedContent = processedContent.replace(/@([^\s@,，。.!！?？]+)/g, (match, name) => {
+            return `<a href="#" class="mention-link" data-mention="${name}">@${name}</a>`;
+        });
 
         content.innerHTML = `
             <header class="article-header">
@@ -371,6 +380,15 @@ class SociologyNotes {
         });
 
         modal.style.display = 'block';
+        
+        // 初始化图表（如果有）
+        setTimeout(() => {
+            content.querySelectorAll('chart-renderer').forEach(chart => {
+                if (chart.drawChart) {
+                    chart.drawChart();
+                }
+            });
+        }, 100);
     }
 
     // 渲染标签云
@@ -391,7 +409,6 @@ class SociologyNotes {
             `<span class="tag" data-tag="${tag}">${tag} (${count})</span>`
         ).join('');
 
-        // 标签点击搜索
         container.querySelectorAll('.tag').forEach(tagEl => {
             tagEl.addEventListener('click', () => {
                 document.getElementById('search-input').value = tagEl.dataset.tag;
@@ -424,12 +441,10 @@ class SociologyNotes {
         this.attachCardListeners();
     }
 
-    // 语义搜索（模拟）
+    // 语义搜索
     handleSemanticSearch(query) {
         if (!query.trim()) return;
 
-        // 实际实现需要调用向量搜索API
-        // 这里用关键词相似度模拟
         const keywords = {
             '基层治理': ['基层治理', '社区自治', '行政下沉', '网格化', '共治'],
             '国家治理': ['国家治理', '治理现代化', '治理能力', '制度优势'],
@@ -475,7 +490,6 @@ class SociologyNotes {
             .attr('width', width)
             .attr('height', height);
 
-        // 颜色映射
         const colorMap = {
             papers: '#3498db',
             books: '#9b59b6',
@@ -486,7 +500,6 @@ class SociologyNotes {
 
         const g = svg.append('g');
 
-        // 缩放
         const zoom = d3.zoom()
             .scaleExtent([0.1, 4])
             .on('zoom', (event) => {
@@ -495,14 +508,12 @@ class SociologyNotes {
 
         svg.call(zoom);
 
-        // 力导向模拟
         const simulation = d3.forceSimulation(this.graphData.nodes)
             .force('link', d3.forceLink(this.graphData.links).id(d => d.id).distance(100))
             .force('charge', d3.forceManyBody().strength(-300))
             .force('center', d3.forceCenter(width / 2, height / 2))
             .force('collision', d3.forceCollide().radius(30));
 
-        // 绘制连线
         const link = g.append('g')
             .selectAll('line')
             .data(this.graphData.links)
@@ -511,7 +522,6 @@ class SociologyNotes {
             .attr('stroke', 'rgba(255,255,255,0.3)')
             .attr('stroke-width', 1);
 
-        // 绘制节点
         const node = g.append('g')
             .selectAll('g')
             .data(this.graphData.nodes)
@@ -533,7 +543,6 @@ class SociologyNotes {
                     d.fy = null;
                 }));
 
-        // 节点圆圈
         node.append('circle')
             .attr('r', d => d.type === 'author' ? 8 : 12)
             .attr('fill', d => colorMap[d.type] || '#999')
@@ -541,7 +550,6 @@ class SociologyNotes {
             .attr('stroke-width', 2)
             .style('cursor', 'pointer');
 
-        // 节点标签
         node.append('text')
             .text(d => d.name)
             .attr('x', 15)
@@ -550,7 +558,6 @@ class SociologyNotes {
             .attr('font-size', '12px')
             .style('pointer-events', 'none');
 
-        // 节点点击
         node.on('click', (event, d) => {
             if (d.type !== 'author' && d.type !== 'tag') {
                 const article = this.articles.find(a => `article-${a.id}` === d.id);
@@ -558,7 +565,6 @@ class SociologyNotes {
             }
         });
 
-        // 更新位置
         simulation.on('tick', () => {
             link
                 .attr('x1', d => d.source.x)
@@ -569,12 +575,10 @@ class SociologyNotes {
             node.attr('transform', d => `translate(${d.x},${d.y})`);
         });
 
-        // 重置缩放按钮
         document.getElementById('reset-zoom').addEventListener('click', () => {
             svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity);
         });
 
-        // 节点搜索
         document.getElementById('graph-search').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
             node.selectAll('circle')
@@ -597,10 +601,18 @@ class SociologyNotes {
                     <li><strong>语义搜索</strong> - 基于概念的智能匹配</li>
                     <li><strong>知识脑图</strong> - 可视化文章关联</li>
                     <li><strong>@ 关联</strong> - 文章间相互引用跳转</li>
+                    <li><strong>交互式代码</strong> - 运行 Python 复现论文分析</li>
+                    <li><strong>参数滑块</strong> - 动态调整模型参数</li>
                 </ul>
                 
-                <h3>📝 写作规范</h3>
-                <p>使用 <code>@作者名</code> 或 <code>@概念名</code> 在文章中创建关联。</p>
+                <h3>🚀 交互式功能</h3>
+                <p>在定量分析论文笔记中，你可以：</p>
+                <ul>
+                    <li>运行 <code>python-runnable</code> 代码块复现分析</li>
+                    <li>使用 <code>@slider</code> 调节参数看效应变化</li>
+                    <li>通过 <code>@chart</code> 查看交互式图表</li>
+                    <li>用 <code>@table</code> 探索数据</li>
+                </ul>
                 
                 <h3>🔗 相关链接</h3>
                 <ul>

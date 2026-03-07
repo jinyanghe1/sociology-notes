@@ -6,3 +6,35 @@
 - Validation: 通过 ls/sed/find 确认目录状态。
 - Next Steps: 写入正式 skill 内容；生成 UI metadata；运行 quick_validate。
 - Risks/Notes: 写入全局技能目录需要提权执行。
+
+### [2026-03-07 17:00:56 +0800] post-edit milestone
+- Request/Goal: 构建可触发的 paper-notes 全局 skill，并固化多轮论文深读流程。
+- Changes: 新增 ~/.codex/skills/paper-notes/SKILL.md；新增 references/note-template.md；生成 agents/openai.yaml。
+- Implemented: 完成审稿人角色、多轮对话、三维评审、前沿定位、目标路径写入规范；补充结构化读书笔记模板。
+- Validation: python3 .../quick_validate.py /Users/hejinyang/.codex/skills/paper-notes -> Skill is valid!
+- Next Steps: 追加 completion entry；向用户汇报路径与使用方式。
+- Risks/Notes: 当前会话的“available skills”列表通常在新会话刷新；新 skill 已落盘到全局目录。
+
+### [2026-03-07 17:01:23 +0800] completion
+- Request/Goal: 交付“论文笔记”skill并确保可验证。
+- Changes: 完成全局技能目录内容编写与元数据生成。
+- Implemented: paper-notes skill 支持多轮深读、审稿人式追问、三维评审、前沿定位、最终按模板写入目标路径；含 references 模板。
+- Validation: quick_validate 通过；关键文件内容已人工复核。
+- Next Steps: 提醒用户在后续对话中以 $paper-notes 显式触发或开启新会话刷新技能列表。
+- Risks/Notes: 若用户希望“论文笔记”作为显示名，也可后续将 skill name 从 paper-notes 迁移为中文或拼音版本。
+
+### [2026-03-07 17:04:54 +0800] paper-notes intake start
+- Request/Goal: 使用 paper-notes 深入阅读《从总体控制到技术治理——基于中国30年改革经验的社会学分析》（渠敬东、周飞舟、应星）。
+- Changes: 检索本地资料，确认是否存在论文全文或可用摘录。
+- Implemented: 已检索 docs/ 与仓库文本，仅找到相关脉络笔记（项目制、共谋现象），未发现该文全文。
+- Validation: rg 检索命中结果已核对。
+- Next Steps: 进行 intake 轮，确认用户目标、文本来源与输出路径；随后进入多轮批判性对话。
+- Risks/Notes: 无全文时需基于外部来源或用户提供摘录，并显式标注推断边界。
+
+### [2026-03-07 17:06:11 +0800] paper-notes source pass
+- Request/Goal: 获取《从总体支配到技术治理》可读文本与学界讨论材料，用于多轮深读。
+- Changes: 通过 web 检索并读取全文来源与讨论稿来源。
+- Implemented: 已定位正文三阶段论证（双轨制→分税制→技术治理）及核心批评点（宏观框架强、阶段边界与机制细化不足、社会后果与全球比较需增强）。
+- Validation: 来源页面可打开并定位关键段落；已抽取行号用于后续证据化讨论。
+- Next Steps: 启动第1轮对话，确认用户阅读目标、评审重点与最终输出路径；进入第2轮机制与方法审查。
+- Risks/Notes: 当前文本来自网络转引站点，后续笔记将注明来源并区分“原文主张”与“推断”。

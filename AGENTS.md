@@ -7,6 +7,8 @@
 - 🕸️ 知识脑图可视化
 - @ 关联跳转
 - 📑 分类浏览
+- 🐍 交互式 Python 代码运行
+- 📊 参数滑块与交互式图表
 
 ## 可用技能
 
@@ -23,6 +25,32 @@
 → 启动 paper-reading skill
 → 进行多轮深度对话
 → 生成凝练的读书笔记
+```
+
+### interactive-notes
+**路径**: `.agents/skills/interactive-notes/SKILL.md`
+
+在读书笔记中嵌入可运行的 Python 代码和交互式可视化组件。
+
+功能：
+- `python-runnable` 代码块 - 浏览器内运行 Python
+- `@slider` 参数滑块 - 动态调整模型参数
+- `@chart` 交互式图表 - Plotly.js 可视化
+- `@table` 数据表格 - 可排序筛选
+
+使用方式：
+```markdown
+## 博弈模型演示
+
+@slider[effort_cost](label="努力成本", min=0.1, max=2.0, value=1.0)
+
+```python-runnable
+# 计算最优努力
+c = {{slider.effort_cost}}
+print(f"最优努力: {1/(2*c):.2f}")
+```
+
+@chart[bar](x=["A", "B"], y=[10, 20], title="结果对比")
 ```
 
 ## 文档规范
@@ -52,11 +80,41 @@ summary: "一句话摘要"
 ---
 ```
 
+### 交互式 Markdown 扩展语法
+
+#### 1. 可运行 Python 代码
+```markdown
+```python-runnable {height=300}
+import numpy as np
+print("Hello from Python!")
+```
+```
+
+#### 2. 参数滑块
+```markdown
+@slider[变量名](label="显示名称", min=0, max=100, value=50, step=1)
+```
+
+在代码中引用：`{{slider.变量名}}`
+
+#### 3. 交互式图表
+```markdown
+@chart[line](x=[1,2,3], y=[4,5,6], title="折线图")
+```
+
+支持类型：`line`, `bar`, `scatter`, `histogram`, `box`, `network`
+
+#### 4. 交互式表格
+```markdown
+@table[data.csv](sortable=true, filterable=true)
+```
+
 ## 技术栈
 
 - **构建**: Python + GitHub Actions
-- **搜索**: Lunr.js (关键词) + 语义匹配
-- **可视化**: D3.js (力导向图)
+- **搜索**: Lunr.js (关键词) + 向量索引 (语义)
+- **可视化**: D3.js (力导向图) + Plotly.js (交互图表)
+- **Python 运行时**: PyScript (Pyodide/WebAssembly)
 - **部署**: GitHub Pages
 
 ## 本地开发
@@ -75,3 +133,38 @@ python -m http.server 8000 --directory site/
 ## 部署
 
 推送至 main 分支后，GitHub Actions 自动构建并部署到 Pages。
+
+## 文件结构
+
+```
+.
+├── docs/                    # Markdown 文档
+│   ├── papers/             # 论文笔记
+│   ├── books/              # 书籍笔记
+│   ├── concepts/           # 概念梳理
+│   └── template.md         # 文档模板
+├── site/                   # 网站构建输出
+│   ├── js/
+│   │   ├── components/     # 交互组件
+│   │   │   ├── CodeRunner.js
+│   │   │   ├── ParamSlider.js
+│   │   │   ├── ChartRenderer.js
+│   │   │   └── DataTable.js
+│   │   ├── parsers/
+│   │   │   └── MarkdownInteractive.js
+│   │   └── app.js
+│   ├── css/
+│   │   ├── style.css
+│   │   └── interactive.css
+│   ├── py/
+│   │   ├── pyscript.toml   # Python 包配置
+│   │   └── utils.py        # Python 工具函数
+│   └── index.html
+├── scripts/
+│   └── build_index.py      # 构建脚本
+├── .agents/skills/         # Agent 技能
+│   ├── paper-reading/
+│   └── interactive-notes/
+└── .github/workflows/      # GitHub Actions
+    └── pages.yml
+```

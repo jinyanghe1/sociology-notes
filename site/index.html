@@ -4,12 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>社会学读书笔记</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://unpkg.com/lunr/lunr.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    
+    <!-- Marked.js -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- Lunr.js -->
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- 应用样式 -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/interactive.css">
 </head>
 <body>
+    <!-- PyScript 加载提示 -->
+    <div id="pyscript-loader" class="pyscript-loader" style="display: none;">
+        <div class="loader-content">
+            <span class="spinner"></span>
+            <p>正在加载 Python 运行环境...</p>
+            <small>首次加载可能需要 10-20 秒</small>
+        </div>
+    </div>
+
     <div class="container">
         <!-- 侧边栏 -->
         <aside class="sidebar">
@@ -74,6 +99,24 @@
         <div id="graph-container"></div>
     </div>
 
+    <!-- 交互式组件脚本 -->
+    <script src="js/parsers/MarkdownInteractive.js"></script>
+    <script src="js/components/CodeRunner.js"></script>
+    <script src="js/components/ParamSlider.js"></script>
+    <script src="js/components/ChartRenderer.js"></script>
+    <script src="js/components/DataTable.js"></script>
     <script src="js/app.js"></script>
+
+    <!-- PyScript 配置 -->
+    <script type="py">
+        import js
+        from pyscript import when
+        
+        # 标记 PyScript 已加载
+        js.window.pyscriptLoaded = True
+        js.document.getElementById('pyscript-loader').style.display = 'none'
+        
+        print("✅ Python 运行环境已就绪")
+    </script>
 </body>
 </html>

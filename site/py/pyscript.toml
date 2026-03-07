@@ -1,0 +1,14 @@
+name = "Sociology Notes Python Environment"
+description = "Python runtime for interactive sociology notes"
+
+[packages]
+numpy = ""
+pandas = ""
+matplotlib = ""
+scipy = ""
+statsmodels = ""
+scikit-learn = ""
+networkx = ""
+
+[files]
+"./utils.py" = "./utils.py"

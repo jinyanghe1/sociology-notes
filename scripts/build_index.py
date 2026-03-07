@@ -2,6 +2,7 @@
 """
 构建索引脚本：扫描 docs/ 目录下的所有 Markdown 文件，
 生成搜索索引和知识图谱数据。
+支持交互式 Markdown 扩展语法。
 """
 
 import json
@@ -28,10 +29,49 @@ def extract_mentions(content: str) -> list:
     return list(set(mentions))
 
 
+def extract_interactive_elements(content: str) -> dict:
+    """提取交互式元素信息 """
+    elements = {
+        'has_python_code': False,
+        'has_sliders': False,
+        'has_charts': False,
+        'has_tables': False,
+        'slider_vars': [],
+        'chart_types': []
+    }
+    
+    # 检测可运行代码块
+    if re.search(r'```python-runnable', content):
+        elements['has_python_code'] = True
+    
+    # 检测滑块
+    slider_pattern = r'@slider\[(\w+)\]'
+    sliders = re.findall(slider_pattern, content)
+    if sliders:
+        elements['has_sliders'] = True
+        elements['slider_vars'] = sliders
+    
+    # 检测图表
+    chart_pattern = r'@chart\[(\w+)\]'
+    charts = re.findall(chart_pattern, content)
+    if charts:
+        elements['has_charts'] = True
+        elements['chart_types'] = charts
+    
+    # 检测表格
+    if re.search(r'@table\[', content):
+        elements['has_tables'] = True
+    
+    return elements
+
+
 def parse_markdown_file(filepath: Path) -> dict:
     """解析单个 Markdown 文件 """
     try:
         post = frontmatter.load(filepath)
+        
+        # 提取交互式元素
+        interactive = extract_interactive_elements(post.content)
         
         # 基础信息
         article = {
@@ -47,6 +87,7 @@ def parse_markdown_file(filepath: Path) -> dict:
             "summary": post.get("summary", ""),
             "content": post.content,
             "mentions": extract_mentions(post.content),
+            "interactive": interactive,
             "updated": datetime.fromtimestamp(filepath.stat().st_mtime).isoformat(),
         }
         
@@ -110,7 +151,6 @@ def build_graph(articles: list) -> dict:
         
         # 提及关系
         for mention in article.get("mentions", []):
-            # 查找被提及的文章
             mentioned = None
             for other in articles:
                 if other["title"] == mention or mention in other.get("authors", []):
@@ -129,9 +169,7 @@ def build_graph(articles: list) -> dict:
 
 
 def generate_semantic_index(articles: list) -> dict:
-    """生成语义搜索索引 (预留接口) """
-    # 这里可以集成 sentence-transformers 或其他向量库
-    # 目前返回关键词列表用于简单语义匹配
+    """生成语义搜索索引 """
     semantic_keywords = {}
     
     for article in articles:
@@ -139,11 +177,19 @@ def generate_semantic_index(articles: list) -> dict:
         keywords.update(article.get("tags", []))
         keywords.update(article.get("mentions", []))
         
-        # 从标题提取关键词
         title = article.get("title", "")
-        # 简单分词（可以改进）
         words = re.findall(r'[\u4e00-\u9fa5]{2,}', title)
         keywords.update(words)
+        
+        # 标记有交互式内容的论文
+        interactive = article.get("interactive", {})
+        if interactive.get("has_python_code"):
+            keywords.add("可运行代码")
+            keywords.add("交互式")
+        if interactive.get("has_sliders"):
+            keywords.add("参数调节")
+        if interactive.get("has_charts"):
+            keywords.add("可视化")
         
         semantic_keywords[article["id"]] = list(keywords)
     
@@ -156,7 +202,6 @@ def main():
     
     articles = []
     
-    # 遍历所有 markdown 文件
     for category_dir in DOCS_DIR.iterdir():
         if category_dir.is_dir():
             for md_file in category_dir.glob("*.md"):
@@ -166,6 +211,14 @@ def main():
                     articles.append(article)
     
     print(f"\n✅ 解析完成: {len(articles)} 篇文章")
+    
+    # 统计交互式内容
+    interactive_count = sum(
+        1 for a in articles 
+        if a.get("interactive", {}).get("has_python_code")
+    )
+    if interactive_count > 0:
+        print(f"  包含交互式代码: {interactive_count} 篇")
     
     # 构建图谱
     print("🕸️ 构建知识图谱...")
@@ -186,7 +239,8 @@ def main():
         "semantic": semantic_index,
         "metadata": {
             "generated_at": datetime.now().isoformat(),
-            "total_articles": len(articles)
+            "total_articles": len(articles),
+            "interactive_articles": interactive_count
         }
     }
     
