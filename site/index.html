@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社会学读书笔记</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>📚 社会学读书笔记</h1>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-item active" data-view="home">🏠 首页</a>
+                <a href="#papers" class="nav-item" data-view="papers">📄 论文笔记</a>
+                <a href="#books" class="nav-item" data-view="books">📖 书籍笔记</a>
+                <a href="#concepts" class="nav-item" data-view="concepts">💡 概念梳理</a>
+                <a href="#graph" class="nav-item" data-view="graph">🧠 知识脑图</a>
+                <a href="#about" class="nav-item" data-view="about">ℹ️ 关于</a>
+            </nav>
+            <div class="tags-cloud" id="tags-cloud">
+                <h3>🏷️ 热门标签</h3>
+                <div class="tags-list"></div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main">
+            <!-- 搜索栏 -->
+            <header class="header">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="🔍 搜索文章、作者或关键词...">
+                    <button id="semantic-search-btn" title="语义搜索">🧠</button>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-mode="list">📋 列表</button>
+                    <button class="view-btn" data-mode="grid">⊞ 网格</button>
+                </div>
+            </header>
+
+            <!-- 内容区域 -->
+            <div class="content" id="content">
+                <!-- 动态加载内容 -->
+            </div>
+        </main>
+    </div>
+
+    <!-- 文章详情模态框 -->
+    <div class="modal" id="article-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <article id="article-content"></article>
+        </div>
+    </div>
+
+    <!-- 脑图视图 -->
+    <div class="graph-view" id="graph-view" style="display: none;">
+        <div class="graph-controls">
+            <input type="text" id="graph-search" placeholder="查找节点...">
+            <button id="reset-zoom">重置视图</button>
+            <div class="legend">
+                <span class="legend-item"><span class="dot paper"></span> 论文</span>
+                <span class="legend-item"><span class="dot book"></span> 书籍</span>
+                <span class="legend-item"><span class="dot concept"></span> 概念</span>
+                <span class="legend-item"><span class="dot author"></span> 作者</span>
+            </div>
+        </div>
+        <div id="graph-container"></div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

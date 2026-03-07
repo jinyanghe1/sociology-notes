@@ -1,0 +1,9 @@
+# 构建脚本依赖
+python-frontmatter>=1.0.0
+markdown>=3.4.0
+pyyaml>=6.0
+requests>=2.28.0
+
+# 语义搜索依赖 (可选，用于本地生成向量索引)
+# sentence-transformers>=2.2.0
+# numpy>=1.24.0
