@@ -462,17 +462,17 @@ class WeChatPublisher:
             # 如果页面太高，分段截图
             if page_height > SCREENSHOT_MAX_HEIGHT:
                 log(f"页面过高，将分段截图")
-                segments = self._split_screenshot(page, output_dir, page_height)
+                segments = await self._split_screenshot(page, output_dir, page_height)
                 screenshot_paths.extend(segments)
             else:
                 # 单张截图
                 screenshot_path = output_dir / "article_full.jpg"
-                await page.screenshot({
+                await page.screenshot(
                     path=str(screenshot_path),
                     full_page=True,
                     type="jpeg",
                     quality=SCREENSHOT_QUALITY
-                })
+                )
                 screenshot_paths.append(screenshot_path)
                 log(f"截图已保存: {screenshot_path}", "success")
             
@@ -481,31 +481,37 @@ class WeChatPublisher:
         return screenshot_paths
     
     async def _split_screenshot(self, page, output_dir: Path, total_height: int) -> List[Path]:
-        """分段截图"""
+        """分段截图 - 先全页面截图，再用Pillow裁剪"""
         paths = []
         segment_height = SCREENSHOT_MAX_HEIGHT
         num_segments = (total_height + segment_height - 1) // segment_height
         
+        # 先全页面截图到临时文件
+        temp_full_path = output_dir / "_temp_full.png"
+        await page.screenshot(
+            path=str(temp_full_path),
+            full_page=True
+        )
+        
+        # 用Pillow打开并裁剪
+        full_img = Image.open(temp_full_path)
+        
         for i in range(num_segments):
             start_y = i * segment_height
             end_y = min((i + 1) * segment_height, total_height)
+            actual_height = end_y - start_y
             
             screenshot_path = output_dir / f"section_{i+1}.jpg"
             
-            await page.screenshot({
-                path=str(screenshot_path),
-                clip={
-                    "x": 0,
-                    "y": start_y,
-                    "width": SCREENSHOT_WIDTH,
-                    "height": end_y - start_y
-                },
-                type="jpeg",
-                quality=SCREENSHOT_QUALITY
-            })
+            # 裁剪
+            cropped = full_img.crop((0, start_y, SCREENSHOT_WIDTH, end_y))
+            cropped.save(screenshot_path, "JPEG", quality=SCREENSHOT_QUALITY)
             
             paths.append(screenshot_path)
             log(f"分段截图 {i+1}/{num_segments}: {screenshot_path}", "success")
+        
+        # 删除临时文件
+        temp_full_path.unlink()
         
         return paths
     
