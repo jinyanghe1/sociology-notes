@@ -1,0 +1,63 @@
+name: Generate WeChat Post
+
+on:
+  # 手动触发
+  workflow_dispatch:
+    inputs:
+      article_name:
+        description: '文章名称 (如: ovb_interactive_demo)'
+        required: true
+        type: string
+      upload_images:
+        description: '上传到图床'
+        required: false
+        type: boolean
+        default: true
+  
+  # 文章更新时自动触发（可选）
+  # push:
+  #   branches: [ main ]
+  #   paths: 
+  #     - 'site/articles/**.html'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        pip install -r scripts/requirements-wechat.txt
+        playwright install chromium
+        
+    - name: Generate WeChat post
+      run: |
+        python scripts/wechat_publisher.py --article "${{ github.event.inputs.article_name }}"
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: wechat-post-${{ github.event.inputs.article_name }}
+        path: wechat_posts/
+        retention-days: 30
+        
+    - name: Comment on commit (if manual trigger)
+      if: github.event_name == 'workflow_dispatch'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const artifactUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+          github.rest.repos.createCommitComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            commit_sha: context.sha,
+            body: `📱 公众号文章已生成！\n\n文章: ${{ github.event.inputs.article_name }}\n下载: [Actions Artifacts](${artifactUrl})\n\n使用步骤:\n1. 下载Artifacts\n2. 解压后打开 article.md\n3. 复制内容到公众号编辑器\n4. 图片已外链，自动加载`
+          })
