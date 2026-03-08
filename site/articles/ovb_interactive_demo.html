@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遗漏变量偏误交互式演示 | 社会学读书笔记</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <!-- MathJax for formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .control-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .slider-container {
+            margin: 15px 0;
+        }
+        .slider-label {
+            display: inline-block;
+            width: 250px;
+            font-weight: bold;
+        }
+        .slider-value {
+            display: inline-block;
+            width: 80px;
+            text-align: center;
+            background: #007bff;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        input[type="range"] {
+            width: 300px;
+            vertical-align: middle;
+        }
+        .chart-container {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .formula-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .concept-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .result-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .step-box {
+            background: #e7f3ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .step-number {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        table.formula-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        table.formula-table th, table.formula-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        table.formula-table th {
+            background: #f8f9fa;
+        }
+        .highlight {
+            background: yellow;
+            padding: 2px 4px;
+        }
+    </style>
+</head>
+<body>
+    <header class="article-header">
+        <nav class="breadcrumb">
+            <a href="../index.html">🏠 首页</a>
+            <span>/</span>
+            <span class="current">遗漏变量偏误交互式演示</span>
+        </nav>
+    </header>
+
+    <main class="demo-container">
+        <h1>🎮 遗漏变量偏误（OVB）交互式演示</h1>
+        <p style="color: #666; font-size: 14px;">基于张子尧、黄炜《实证研究中的控制变量选择：原理与原则》</p>
+
+        <!-- 核心概念 -->
+        <div class="concept-box">
+            <h3>📚 核心概念：什么是遗漏变量偏误？</h3>
+            <p><strong>场景</strong>：你想研究"教育对收入的影响"，但忽略了"能力"这个因素。</p>
+            <p><strong>问题</strong>：能力强的人 → 更可能接受更多教育，同时 → 即使不受这么多教育也能挣更多钱。</p>
+            <p><strong>后果</strong>：你把"能力带来的收入优势"误以为是"教育带来的收入优势"。</p>
+            <p style="margin-top: 10px;"><strong>公式表达</strong>：</p>
+            <p style="text-align: center; font-size: 18px;">
+                估计偏误 = \( c \times \lambda \)
+            </p>
+            <p>其中：<strong>c</strong> = 遗漏变量对结果的效应，<strong>λ</strong> = 遗漏变量对处理变量的效应</p>
+        </div>
+
+        <!-- 逐步推导 -->
+        <h2>🧮 逐步推导：偏误是如何产生的？</h2>
+        
+        <div class="step-box">
+            <span class="step-number">1</span>
+            <strong>真实的数据生成过程</strong>（上帝视角）
+            <p style="margin-left: 40px;">
+                收入 \( Y = \alpha + \tau D + cX + \epsilon \)
+            </p>
+            <p style="margin-left: 40px; color: #666;">
+                D = 教育年限，X = 能力，τ = 教育的真实效应（我们想要估计的），c = 能力的效应
+            </p>
+        </div>
+
+        <div class="step-box">
+            <span class="step-number">2</span>
+            <strong>研究者实际跑的回归</strong>（遗漏了能力X）
+            <p style="margin-left: 40px;">
+                收入 \( Y = \alpha^* + \tau^* D + \text{error} \)
+            </p>
+            <p style="margin-left: 40px; color: #666;">
+                注意：τ* 是我们实际估计的系数，它可能不等于真实的 τ
+            </p>
+        </div>
+
+        <div class="step-box">
+            <span class="step-number">3</span>
+            <strong>OLS估计量的分解</strong>
+            <p style="margin-left: 40px;">
+                当我们用OLS估计 τ* 时：
+            </p>
+            <p style="margin-left: 40px; text-align: center;">
+                \( \hat{\tau}^* = \frac{\text{Cov}(Y, D)}{\text{Var}(D)} \)
+            </p>
+        </div>
+
+        <div class="step-box">
+            <span class="step-number">4</span>
+            <strong>代入真实的Y</strong>
+            <p style="margin-left: 40px;">
+                把 \( Y = \alpha + \tau D + cX + \epsilon \) 代入上式：
+            </p>
+            <p style="margin-left: 40px; text-align: center;">
+                \( \hat{\tau}^* = \frac{\tau\text{Var}(D) + c\text{Cov}(X,D)}{\text{Var}(D)} \)
+            </p>
+        </div>
+
+        <div class="formula-box">
+            <span class="step-number">5</span>
+            <strong>最终结果：遗漏变量偏误公式</strong>
+            <p style="margin-left: 40px; text-align: center; font-size: 20px;">
+                \( \hat{\tau}^* = \tau + \underbrace{c \times \frac{\text{Cov}(X,D)}{\text{Var}(D)}}_{\text{偏误项}} \)
+            </p>
+            <p style="margin-left: 40px;">
+                或者简化为：<span class="highlight">估计值 = 真实值 + (能力效应 × 能力对教育的效应)</span>
+            </p>
+        </div>
+
+        <!-- 交互式控制面板 -->
+        <div class="control-panel">
+            <h2>🎮 交互式参数控制</h2>
+            <p>调整以下参数，观察遗漏变量偏误如何变化：</p>
+            
+            <div class="slider-container">
+                <span class="slider-label">c (能力对收入的效应):</span>
+                <input type="range" id="cSlider" min="-5" max="5" step="0.5" value="3">
+                <span class="slider-value" id="cValue">3.0</span>
+            </div>
+            <p style="margin-left: 260px; color: #666; font-size: 12px;">
+                能力强的人收入高多少？（比如：能力每高1分，收入高3元）
+            </p>
+
+            <div class="slider-container">
+                <span class="slider-label">λ (能力对教育的效应):</span>
+                <input type="range" id="lambdaSlider" min="-0.5" max="0.5" step="0.05" value="0.3">
+                <span class="slider-value" id="lambdaValue">0.30</span>
+            </div>
+            <p style="margin-left: 260px; color: #666; font-size: 12px;">
+                能力强的人多受多少教育？（比如：能力每高1分，多受0.3年教育）
+            </p>
+
+            <button onclick="updateSimulation()" style="margin-top: 15px; padding: 10px 30px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                🔄 更新模拟
+            </button>
+        </div>
+
+        <!-- 结果展示 -->
+        <div class="result-box" id="resultBox">
+            <h3>📊 当前估计结果</h3>
+            <table class="formula-table">
+                <tr>
+                    <th>参数</th>
+                    <th>真实值</th>
+                    <th>估计值（遗漏X）</th>
+                    <th>偏误</th>
+                </tr>
+                <tr>
+                    <td>教育效应 τ</td>
+                    <td>5.00</td>
+                    <td id="estimatedTau">-</td>
+                    <td id="biasAmount" style="font-weight: bold;">-</td>
+                </tr>
+            </table>
+            <p id="interpretation" style="margin-top: 10px;"></p>
+        </div>
+
+        <!-- 图表区域 -->
+        <div class="chart-container">
+            <h3>📈 图表1：教育与收入的散点关系</h3>
+            <div id="scatterPlot" style="width:100%; height:400px;"></div>
+            <p style="color: #666; font-size: 12px;">
+                颜色深浅表示能力高低。红色线=遗漏X时的回归线，绿色线=控制X后的真实关系。
+            </p>
+        </div>
+
+        <div class="chart-container">
+            <h3>📊 图表2：偏误分解</h3>
+            <div id="biasPlot" style="width:100%; height:350px;"></div>
+            <p style="color: #666; font-size: 12px;">
+                展示真实效应、偏误项和估计效应的构成。
+            </p>
+        </div>
+
+        <div class="chart-container">
+            <h3>🔍 图表3：按能力分组后的真实效应</h3>
+            <div id="groupPlot" style="width:100%; height:400px;"></div>
+            <p style="color: #666; font-size: 12px;">
+                在相同能力水平内比较（高能力组 vs 低能力组），教育效应接近真实值5。
+            </p>
+        </div>
+
+        <!-- 关键洞察 -->
+        <div class="warning-box">
+            <h3>⚠️ 关键洞察：偏误的方向和大小</h3>
+            <ul>
+                <li><strong>当 c 和 λ 同号时</strong>（都正或都负）：偏误为正 → <span style="color: red;">高估</span>处理效应</li>
+                <li><strong>当 c 和 λ 异号时</strong>（一正一负）：偏误为负 → <span style="color: blue;">低估</span>处理效应</li>
+                <li><strong>当 λ = 0 时</strong>：能力不影响教育 → <span style="color: green;">无偏误</span>（X不是混淆变量）</li>
+                <li><strong>当 c = 0 时</strong>：能力不影响收入 → <span style="color: green;">无偏误</span>（X与结果无关）</li>
+            </ul>
+        </div>
+
+        <!-- 与论文的连接 -->
+        <div class="concept-box">
+            <h3>🔗 与张子尧、黄炜论文的连接</h3>
+            <p>本文演示的是论文中的核心观点：</p>
+            <blockquote style="border-left: 3px solid #007bff; padding-left: 15px; margin: 15px 0; font-style: italic;">
+                "在因果识别环节，'好'控制变量通过合理分层让观测性数据在局部尽可能近似于随机化实验，
+                而'坏'控制变量会引入选择性偏误。"
+            </blockquote>
+            <p><strong>这里的 X（能力）就是一个必须控制的"好"控制变量</strong>，因为它是：</p>
+            <ol>
+                <li>处理前变量（在教育之前就已存在）</li>
+                <li>同时影响处理（教育）和结果（收入）的混淆变量</li>
+            </ol>
+            <p>不控制它，就会产生我们上面演示的遗漏变量偏误。</p>
+        </div>
+
+        <!-- 下一步学习 -->
+        <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-top: 30px;">
+            <h3>📖 下一步学习</h3>
+            <p>理解遗漏变量偏误后，可以继续学习：</p>
+            <ul>
+                <li><strong>坏控制变量</strong>：为什么控制某些变量（如中介变量、对撞变量）会引入新的偏误？</li>
+                <li><strong>统计推断</strong>：控制变量如何影响估计的标准误和统计功效？</li>
+                <li><strong>因果图（DAG）</strong>：如何用图形方法系统地识别好/坏控制变量？</li>
+            </ul>
+            <p>相关内容请参考《实证研究中的控制变量选择：原理与原则》原文。</p>
+        </div>
+    </main>
+
+    <!-- JavaScript for simulation -->
+    <script>
+        // Global parameters
+        const TRUE_TAU = 5;  // 教育的真实效应
+        const ALPHA = 50;    // 截距
+        const N = 500;       // 样本量
+
+        // Generate random data with seed
+        function generateData(c, lambda, seed = 42) {
+            // Simple PRNG
+            let s = seed;
+            function rand() {
+                s = Math.sin(s * 12.9898 + 78.233) * 43758.5453;
+                return s - Math.floor(s);
+            }
+            function randn() {
+                // Box-Muller transform
+                let u = 0, v = 0;
+                while(u === 0) u = rand();
+                while(v === 0) v = rand();
+                return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+            }
+
+            let X = [], D = [], Y = [];
+            
+            for(let i = 0; i < N; i++) {
+                let x = 50 + 10 * randn();  // 能力 X
+                let d = 10 + lambda * x + 5 * randn();  // 教育 D（受X影响）
+                let y = ALPHA + TRUE_TAU * d + c * x + 10 * randn();  // 收入 Y
+                
+                X.push(x);
+                D.push(d);
+                Y.push(y);
+            }
+            
+            return {X, D, Y};
+        }
+
+        // Calculate covariance
+        function cov(a, b) {
+            let meanA = a.reduce((s, v) => s + v, 0) / a.length;
+            let meanB = b.reduce((s, v) => s + v, 0) / b.length;
+            let sum = 0;
+            for(let i = 0; i < a.length; i++) {
+                sum += (a[i] - meanA) * (b[i] - meanB);
+            }
+            return sum / (a.length - 1);
+        }
+
+        // Calculate variance
+        function variance(a) {
+            let mean = a.reduce((s, v) => s + v, 0) / a.length;
+            let sum = 0;
+            for(let i = 0; i < a.length; i++) {
+                sum += Math.pow(a[i] - mean, 2);
+            }
+            return sum / (a.length - 1);
+        }
+
+        // Estimate models
+        function estimateModels(X, D, Y) {
+            // Model without X (biased)
+            let cov_dy = cov(D, Y);
+            let var_d = variance(D);
+            let tau_biased = cov_dy / var_d;
+            
+            // Model with X (unbiased) - manual calculation
+            let cov_dx = cov(D, X);
+            let cov_xy = cov(X, Y);
+            let var_x = variance(X);
+            
+            let denominator = var_d - (cov_dx * cov_dx) / var_x;
+            let numerator = cov_dy - (cov_dx * cov_xy) / var_x;
+            let tau_unbiased = numerator / denominator;
+            
+            let lambda_est = cov_dx / var_x;
+            let short_bias = c * lambda_est;
+            
+            return {
+                tau_biased,
+                tau_unbiased,
+                bias: tau_biased - TRUE_TAU,
+                lambda: lambda_est,
+                short_bias
+            };
+        }
+
+        // Update sliders display
+        document.getElementById('cSlider').addEventListener('input', function() {
+            document.getElementById('cValue').textContent = parseFloat(this.value).toFixed(1);
+        });
+        document.getElementById('lambdaSlider').addEventListener('input', function() {
+            document.getElementById('lambdaValue').textContent = parseFloat(this.value).toFixed(2);
+        });
+
+        // Main update function
+        let c = 3.0;
+        let lambda = 0.3;
+
+        function updateSimulation() {
+            c = parseFloat(document.getElementById('cSlider').value);
+            lambda = parseFloat(document.getElementById('lambdaSlider').value);
+            
+            // Generate data
+            let {X, D, Y} = generateData(c, lambda);
+            
+            // Estimate
+            let results = estimateModels(X, D, Y);
+            
+            // Update result box
+            document.getElementById('estimatedTau').textContent = results.tau_biased.toFixed(2);
+            let biasElem = document.getElementById('biasAmount');
+            biasElem.textContent = (results.bias > 0 ? '+' : '') + results.bias.toFixed(2);
+            biasElem.style.color = results.bias > 0 ? 'red' : (results.bias < 0 ? 'blue' : 'green');
+            
+            // Interpretation
+            let interp = document.getElementById('interpretation');
+            if(Math.abs(results.bias) < 0.5) {
+                interp.innerHTML = '<span style="color: green;">✓ 偏误很小！估计接近真实值。</span>';
+            } else if(results.bias > 0) {
+                interp.innerHTML = `<span style="color: red;">⚠️ 高估了 ${results.bias.toFixed(2)}！</span> 我们把"能力带来的收入优势"误认为是"教育带来的收入优势"。`;
+            } else {
+                interp.innerHTML = `<span style="color: blue;">⚠️ 低估了 ${Math.abs(results.bias).toFixed(2)}！</span>`;
+            }
+            
+            // Update plots
+            updateScatterPlot(X, D, Y, results);
+            updateBiasPlot(results);
+            updateGroupPlot(X, D, Y);
+        }
+
+        function updateScatterPlot(X, D, Y, results) {
+            let trace1 = {
+                x: D,
+                y: Y,
+                mode: 'markers',
+                type: 'scatter',
+                marker: {
+                    color: X,
+                    colorscale: 'Viridis',
+                    colorbar: {title: '能力 X'},
+                    size: 6,
+                    opacity: 0.6
+                },
+                name: '数据点'
+            };
+            
+            // Biased regression line
+            let D_range = [Math.min(...D), Math.max(...D)];
+            let meanY = Y.reduce((a,b) => a+b, 0) / Y.length;
+            let meanD = D.reduce((a,b) => a+b, 0) / D.length;
+            let intercept_biased = meanY - results.tau_biased * meanD;
+            
+            let trace2 = {
+                x: D_range,
+                y: [results.tau_biased * D_range[0] + intercept_biased, 
+                    results.tau_biased * D_range[1] + intercept_biased],
+                mode: 'lines',
+                type: 'scatter',
+                line: {color: 'red', width: 3},
+                name: `遗漏X: 斜率=${results.tau_biased.toFixed(2)}`
+            };
+            
+            // Unbiased line (true effect)
+            let intercept_true = meanY - TRUE_TAU * meanD;
+            let trace3 = {
+                x: D_range,
+                y: [TRUE_TAU * D_range[0] + intercept_true,
+                    TRUE_TAU * D_range[1] + intercept_true],
+                mode: 'lines',
+                type: 'scatter',
+                line: {color: 'green', width: 3, dash: 'dash'},
+                name: `真实效应: 斜率=${TRUE_TAU.toFixed(2)}`
+            };
+            
+            let layout = {
+                title: `教育与收入的关系 (c=${c.toFixed(1)}, λ=${lambda.toFixed(2)})`,
+                xaxis: {title: '教育年限 D'},
+                yaxis: {title: '收入 Y'},
+                showlegend: true
+            };
+            
+            Plotly.newPlot('scatterPlot', [trace1, trace2, trace3], layout);
+        }
+
+        function updateBiasPlot(results) {
+            let trace = {
+                x: ['真实效应 τ', '偏误项 c×λ', '估计效应 τ*'],
+                y: [TRUE_TAU, results.short_bias, results.tau_biased],
+                type: 'bar',
+                marker: {
+                    color: ['green', 'purple', 'orange']
+                },
+                text: [TRUE_TAU.toFixed(2), results.short_bias.toFixed(2), results.tau_biased.toFixed(2)],
+                textposition: 'auto'
+            };
+            
+            let layout = {
+                title: 'OVB公式: 估计值 = 真实值 + 偏误项',
+                yaxis: {title: '效应大小'},
+                showlegend: false
+            };
+            
+            Plotly.newPlot('biasPlot', [trace], layout);
+        }
+
+        function updateGroupPlot(X, D, Y) {
+            // Split by median X
+            let medianX = X.slice().sort((a,b) => a-b)[Math.floor(X.length/2)];
+            let highIdx = [], lowIdx = [];
+            for(let i = 0; i < X.length; i++) {
+                if(X[i] > medianX) highIdx.push(i);
+                else lowIdx.push(i);
+            }
+            
+            let D_high = highIdx.map(i => D[i]);
+            let Y_high = highIdx.map(i => Y[i]);
+            let D_low = lowIdx.map(i => D[i]);
+            let Y_low = lowIdx.map(i => Y[i]);
+            
+            // High ability group
+            let trace1 = {
+                x: D_high,
+                y: Y_high,
+                mode: 'markers',
+                type: 'scatter',
+                marker: {color: 'red', size: 6, opacity: 0.5},
+                name: '高能力组'
+            };
+            
+            // Low ability group
+            let trace2 = {
+                x: D_low,
+                y: Y_low,
+                mode: 'markers',
+                type: 'scatter',
+                marker: {color: 'blue', size: 6, opacity: 0.5},
+                name: '低能力组'
+            };
+            
+            // Regression lines for each group
+            function groupRegression(D_sub, Y_sub, color, label) {
+                let cov = 0, varD = 0;
+                let meanD = D_sub.reduce((a,b) => a+b, 0) / D_sub.length;
+                let meanY = Y_sub.reduce((a,b) => a+b, 0) / Y_sub.length;
+                for(let i = 0; i < D_sub.length; i++) {
+                    cov += (D_sub[i] - meanD) * (Y_sub[i] - meanY);
+                    varD += (D_sub[i] - meanD) ** 2;
+                }
+                cov /= (D_sub.length - 1);
+                varD /= (D_sub.length - 1);
+                let tau = cov / varD;
+                let intercept = meanY - tau * meanD;
+                
+                let D_range = [Math.min(...D_sub), Math.max(...D_sub)];
+                return {
+                    x: D_range,
+                    y: [tau * D_range[0] + intercept, tau * D_range[1] + intercept],
+                    mode: 'lines',
+                    type: 'scatter',
+                    line: {color: color, dash: 'dash'},
+                    name: `${label}内效应≈${tau.toFixed(1)}`
+                };
+            }
+            
+            let trace3 = groupRegression(D_high, Y_high, 'red', '高能力');
+            let trace4 = groupRegression(D_low, Y_low, 'blue', '低能力');
+            
+            let layout = {
+                title: '控制能力后：各能力组内的教育效应接近真实值5',
+                xaxis: {title: '教育年限 D'},
+                yaxis: {title: '收入 Y'},
+                showlegend: true
+            };
+            
+            Plotly.newPlot('groupPlot', [trace1, trace2, trace3, trace4], layout);
+        }
+
+        // Initialize
+        window.onload = function() {
+            updateSimulation();
+        };
+    </script>
+</body>
+</html>
