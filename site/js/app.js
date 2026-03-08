@@ -6,7 +6,7 @@ class SociologyNotes {
         this.authors = [];
         this.graphData = { nodes: [], links: [] };
         this.searchIndex = null;
-        this.currentView = 'home';
+        this.currentView = 'notes';
         this.mdParser = new MarkdownInteractive();
         this.init();
     }
@@ -32,7 +32,7 @@ class SociologyNotes {
         } else if (params.has('view')) {
             this.switchView(params.get('view'));
         } else {
-            this.renderHome();
+            this.switchView('notes');
         }
         
         this.renderTagsCloud();
@@ -183,6 +183,7 @@ class SociologyNotes {
     // 构建搜索索引
     buildSearchIndex() {
         if (!this.articles.length) return;
+        const articles = this.articles;
         
         this.searchIndex = lunr(function() {
             this.ref('id');
@@ -192,7 +193,7 @@ class SociologyNotes {
             this.field('summary');
             this.field('concepts', { boost: 3 });
 
-            this.articles.forEach(article => {
+            articles.forEach(article => {
                 this.add({
                     id: article.id,
                     title: article.title,
@@ -252,24 +253,26 @@ class SociologyNotes {
 
     // 切换视图
     switchView(view) {
-        this.currentView = view;
+        const normalizedView = ['home', 'papers', 'books', 'about'].includes(view) ? 'notes' : view;
+        this.currentView = normalizedView;
         
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.remove('active');
-            if (item.dataset.view === view) item.classList.add('active');
+            if (item.dataset.view === normalizedView) item.classList.add('active');
         });
 
         document.getElementById('graph-view').style.display = view === 'graph' ? 'block' : 'none';
 
         switch(view) {
             case 'home':
-                this.renderHome();
+            case 'notes':
+                this.renderNotes();
                 break;
             case 'papers':
-                this.renderCategory('papers');
+                this.renderNotes('papers');
                 break;
             case 'books':
-                this.renderCategory('books');
+                this.renderNotes('books');
                 break;
             case 'concepts':
                 this.renderConcepts();
@@ -278,9 +281,36 @@ class SociologyNotes {
                 this.renderGraph();
                 break;
             case 'about':
-                this.renderAbout();
+                this.renderNotes();
+                break;
+            default:
+                this.renderNotes();
                 break;
         }
+    }
+
+    // 渲染笔记（论文 + 书籍）
+    renderNotes(category = null) {
+        let notes = this.articles.filter(a => a.category === 'papers' || a.category === 'books');
+        if (category === 'papers' || category === 'books') {
+            notes = notes.filter(a => a.category === category);
+        }
+
+        const title =
+            category === 'papers' ? '📄 论文笔记'
+            : category === 'books' ? '📖 书籍笔记'
+            : '📝 笔记';
+
+        const html = `
+            <h2>${title}</h2>
+            <p>共 ${notes.length} 篇文章</p>
+            <div class="list-view">
+                ${notes.map(article => this.createCardHTML(article)).join('')}
+            </div>
+        `;
+
+        document.getElementById('content').innerHTML = html;
+        this.attachCardListeners();
     }
 
     // 渲染首页
@@ -551,7 +581,7 @@ class SociologyNotes {
     // 搜索处理
     handleSearch(query) {
         if (!query.trim()) {
-            this.renderHome();
+            this.renderNotes();
             return;
         }
 

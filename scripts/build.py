@@ -292,6 +292,7 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
     articles = []
+    failed_files = []
     
     # 遍历所有 Markdown 文件
     print("\n📄 扫描文档...")
@@ -304,6 +305,14 @@ def main():
                     articles.append(article)
                     # 生成 HTML 文件
                     save_article_html(article)
+                else:
+                    failed_files.append(str(md_file))
+
+    if failed_files:
+        print("\n❌ 以下文件解析失败，已中止构建:")
+        for f in failed_files:
+            print(f"  - {f}")
+        raise SystemExit(1)
     
     print(f"\n✅ 解析完成: {len(articles)} 篇文章")
     

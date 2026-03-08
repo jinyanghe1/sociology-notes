@@ -44,12 +44,30 @@ cd sociology-notes
 # 安装依赖（构建脚本需要）
 pip install -r requirements.txt
 
-# 构建索引并启动本地服务器
-python scripts/build_index.py
+# 构建站点（生成文章 HTML + 索引）
+python scripts/build.py
 python -m http.server 8000 --directory site/
 ```
 
 访问 http://localhost:8000 查看效果。
+
+## ⚙️ 自动创建并构建新笔记
+
+```bash
+python scripts/create_note.py \
+  --category papers \
+  --title "论文标题" \
+  --authors "作者1,作者2" \
+  --year 2026 \
+  --tags "标签1,标签2" \
+  --venue "期刊名" \
+  --summary "一句话摘要"
+```
+
+运行后会自动：
+- 在 `docs/<category>/` 下生成新 `.md`
+- 执行 `scripts/build.py`
+- 更新 `site/articles/*.html` 与 `site/data/index.json`
 
 ## 📝 写作规范
 
