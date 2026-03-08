@@ -600,3 +600,522 @@
     </script>
 </body>
 </html>
+    <!-- ==================== 第二部分：现代因果推断革命 ==================== -->
+    
+    <hr style="margin: 50px 0; border: 2px solid #007bff;">
+    
+    <h1>🎯 第二部分：现代因果推断革命 —— 潜在结果框架</h1>
+    <p style="color: #666; font-size: 14px;">基于 Neyman-Rubin 潜在结果框架 (Potential Outcomes Framework)</p>
+
+    <!-- 核心概念引入 -->
+    <div class="concept-box">
+        <h3>🎭 核心思想：什么是"潜在结果"？</h3>
+        <p><strong>基本问题</strong>：一个人不可能同时"接受处理"又"不接受处理"。这就是因果推断的<strong>基本问题</strong>（The Fundamental Problem of Causal Inference）。</p>
+        
+        <p><strong>潜在结果</strong>（Potential Outcomes）的定义：</p>
+        <ul>
+            <li><strong>\(Y_i(1)\)</strong>：个体 \(i\) <span style="color: red;">接受处理</span>时的潜在结果</li>
+            <li><strong>\(Y_i(0)\)</strong>：个体 \(i\) <span style="color: blue;">不接受处理</span>时的潜在结果</li>
+        </ul>
+        
+        <p><strong>关键洞察</strong>：对于每个个体，我们只能观察到其中一个结果（接受处理的观察到 \(Y_i(1)\)，没接受的观察到 \(Y_i(0)\)），另一个结果<strong>永远缺失</strong>。</p>
+        
+        <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 15px;">
+            <strong>个体处理效应 (ITE, Individual Treatment Effect)</strong>：
+            <p style="text-align: center; font-size: 20px;">
+                \( \tau_i = Y_i(1) - Y_i(0) \)
+            </p>
+            <p>这是个体层面的因果效应，<span style="color: red;">永远无法直接观测</span>，因为 \(Y_i(1)\) 和 \(Y_i(0)\) 不可能同时存在。</p>
+        </div>
+    </div>
+
+    <!-- 三类平均处理效应 -->
+    <h2>📊 三类平均处理效应：ATE, ATT, ATU</h2>
+    
+    <p>既然个体效应无法观测，我们转向<strong>群体平均</strong>。根据 averaging 的人群不同，有三种主要 estimand：</p>
+
+    <table class="formula-table" style="font-size: 14px;">
+        <tr>
+            <th>名称</th>
+            <th>符号</th>
+            <th>公式</th>
+            <th>含义</th>
+            <th>可识别性</th>
+        </tr>
+        <tr>
+            <td><strong>平均处理效应</strong></td>
+            <td>ATE</td>
+            <td>\( \tau_{ATE} = E[Y(1) - Y(0)] \)</td>
+            <td>对<strong>全体人群</strong>随机分配处理的期望效应</td>
+            <td>通常需要最强假设</td>
+        </tr>
+        <tr>
+            <td><strong>处理组平均处理效应</strong></td>
+            <td>ATT</td>
+            <td>\( \tau_{ATT} = E[Y(1) - Y(0) | D=1] \)</td>
+            <td>对<strong>实际接受处理者</strong>的期望效应</td>
+            <td>政策评估中最常用</td>
+        </tr>
+        <tr>
+            <td><strong>对照组平均处理效应</strong></td>
+            <td>ATU</td>
+            <td>\( \tau_{ATU} = E[Y(1) - Y(0) | D=0] \)</td>
+            <td>对<strong>实际未接受处理者</strong>的期望效应</td>
+            <td>常用于异质性分析</td>
+        </tr>
+    </table>
+
+    <div class="formula-box">
+        <h4>🔍 三者关系</h4>
+        <p style="text-align: center;">
+            \( \tau_{ATE} = \tau_{ATT} \times P(D=1) + \tau_{ATU} \times P(D=0) \)
+        </p>
+        <p>ATE 是 ATT 和 ATU 的加权平均。当处理效应同质（所有人的 τ 相同）时，ATE = ATT = ATU。</p>
+    </div>
+
+    <!-- SDM 和选择性偏误 -->
+    <h2>⚠️ 简单差异均值（SDM）的问题</h2>
+
+    <div class="step-box">
+        <span class="step-number">1</span>
+        <strong>研究者实际能计算的是什么？</strong>
+        <p style="margin-left: 40px;">
+            <strong>SDM (Simple Difference in Means)</strong>：
+        </p>
+        <p style="margin-left: 40px; text-align: center; font-size: 18px;">
+            \( \hat{\tau}_{SDM} = \underbrace{E[Y|D=1]}_{\text{处理组观测均值}} - \underbrace{E[Y|D=0]}_{\text{对照组观测均值}} \)
+        </p>
+    </div>
+
+    <div class="step-box">
+        <span class="step-number">2</span>
+        <strong>展开处理组的观测均值</strong>
+        <p style="margin-left: 40px;">
+            对于处理组（\(D=1\)），他们实际接受处理，所以我们观察到的是 \(Y(1)\)：
+        </p>
+        <p style="margin-left: 40px; text-align: center;">
+            \( E[Y|D=1] = E[Y(1)|D=1] \)
+        </p>
+    </div>
+
+    <div class="step-box">
+        <span class="step-number">3</span>
+        <strong>展开对照组的观测均值</strong>
+        <p style="margin-left: 40px;">
+            对于对照组（\(D=0\)），他们没有接受处理，但我们<strong>需要</strong>知道如果他们接受了会怎样（\(Y(1)\)）：
+        </p>
+        <p style="margin-left: 40px; text-align: center;">
+            \( E[Y|D=0] = E[Y(0)|D=0] \)
+        </p>
+        <p style="margin-left: 40px;">
+            但 SDM 用这个代替了 \(E[Y(0)|D=1]\)（处理组的反事实）！
+        </p>
+    </div>
+
+    <div class="formula-box">
+        <span class="step-number">4</span>
+        <strong>SDM 的分解（核心公式）</strong>
+        <p style="margin-left: 40px; text-align: center; font-size: 18px;">
+            \( \underbrace{E[Y|D=1] - E[Y|D=0]}_{\text{SDM 估计量}} = \underbrace{E[Y(1)-Y(0)|D=1]}_{\text{ATT（我们想要的）}} + \underbrace{\{E[Y(0)|D=1] - E[Y(0)|D=0]\}}_{\text{选择性偏误}} \)
+        </p>
+        <p style="margin-left: 40px; margin-top: 15px;">
+            <strong>选择性偏误</strong> = 处理组和对照组在<strong>未接受处理时的潜在结果</strong>本来就不同。
+        </p>
+    </div>
+
+    <div class="warning-box">
+        <h4>🚨 直观理解选择性偏误</h4>
+        <p><strong>例子</strong>：研究"上北大是否能提高收入"</p>
+        <ul>
+            <li><strong>上北大的人</strong>（处理组）：能力本身就强，即使不上北大也能挣不少钱</li>
+            <li><strong>没上北大的人</strong>（对照组）：能力分布不同，可能本来挣得就少</li>
+            <li><strong>选择性偏误</strong>：我们比较的其实是"能力强的人"vs"能力弱的人"，而非"上北大"vs"没上北大"的效果</li>
+        </ul>
+        <p style="margin-top: 10px;">
+            <strong>公式表达</strong>：
+            <span style="background: yellow;">选择性偏误 = \(E[Y(0)|D=1] - E[Y(0)|D=0]\)</span>
+        </p>
+        <p>如果处理组和对照组在<strong>基线</strong>（不接受处理时）就不同，SDM 就会产生偏误。</p>
+    </div>
+
+    <!-- 交互式可视化：ATE, ATT, ATU -->
+    <h2>🎮 交互式演示：ATE vs ATT vs ATU</h2>
+
+    <div class="control-panel">
+        <h3>参数设置</h3>
+        <p>调整处理效应的<strong>异质性</strong>，观察三类效应的差异：</p>
+        
+        <div class="slider-container">
+            <span class="slider-label">处理效应异质性:</span>
+            <input type="range" id="heteroSlider" min="0" max="10" step="1" value="5">
+            <span class="slider-value" id="heteroValue">5</span>
+        </div>
+        <p style="margin-left: 260px; color: #666; font-size: 12px;">
+            0 = 效应同质（ATE=ATT=ATU）；10 = 效应高度异质（处理组效应远高于对照组）
+        </p>
+
+        <div class="slider-container">
+            <span class="slider-label">选择性强度:</span>
+            <input type="range" id="selectionSlider" min="0" max="10" step="1" value="5">
+            <span class="slider-value" id="selectionValue">5</span>
+        </div>
+        <p style="margin-left: 260px; color: #666; font-size: 12px;">
+            处理组和对照组在基线潜在结果上的差异程度
+        </p>
+
+        <button onclick="updatePotentialOutcomes()" style="margin-top: 15px; padding: 10px 30px; font-size: 16px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            🔄 更新模拟
+        </button>
+    </div>
+
+    <!-- 潜在结果展示 -->
+    <div class="chart-container">
+        <h3>📊 图表1：潜在结果分布（个体层面）</h3>
+        <div id="potentialPlot" style="width:100%; height:450px;"></div>
+        <p style="color: #666; font-size: 12px;">
+            每个点代表一个人。红色=处理组（实际观察Y(1)），蓝色=对照组（实际观察Y(0)）。
+            灰色点=缺失的反事实结果。
+        </p>
+    </div>
+
+    <div class="chart-container">
+        <h3>📈 图表2：ATE, ATT, ATU 对比</h3>
+        <div id="effectsPlot" style="width:100%; height:350px;"></div>
+        <p style="color: #666; font-size: 12px;">
+            当处理效应同质时（左），三者相等；当异质时（右），ATT通常最大（因为高处理能力者自选择进入处理组）。
+        </p>
+    </div>
+
+    <div class="chart-container">
+        <h3>⚠️ 图表3：选择性偏误可视化</h3>
+        <div id="selectionBiasPlot" style="width:100%; height:400px;"></div>
+        <p style="color: #666; font-size: 12px;">
+            展示 SDM 估计量如何被选择性偏误"污染"。红色区域=ATT，蓝色区域=选择性偏误。
+        </p>
+    </div>
+
+    <!-- 消除选择性偏误的假设 -->
+    <h2>✅ 消除选择性偏误：三大关键假设</h2>
+
+    <p>要正确识别因果效应（特别是ATE和ATT），需要以下假设：</p>
+
+    <table class="formula-table">
+        <tr>
+            <th>假设</th>
+            <th>名称</th>
+            <th>数学表达</th>
+            <th>直观含义</th>
+        </tr>
+        <tr>
+            <td><strong>SUTVA</strong></td>
+            <td>一致性 + 无干扰</td>
+            <td>\(Y_i = Y_i(1)D_i + Y_i(0)(1-D_i)\)</td>
+            <td>处理是well-defined的；一个人的处理不影响其他人的结果</td>
+        </tr>
+        <tr>
+            <td><strong>Ignorability</strong></td>
+            <td>可忽略性/条件独立</td>
+            <td>\(\{Y(0), Y(1)\} \perp D | X\)</td>
+            <td>控制了X后，处理分配与潜在结果独立（无未观察到的混淆因素）</td>
+        </tr>
+        <tr>
+            <td><strong>Overlap</strong></td>
+            <td>正值性/重叠</td>
+            <td>\(0 < P(D=1|X) < 1\)</td>
+            <td>对于每种X，都有人接受处理也有人未接受（避免外推）</td>
+        </tr>
+    </table>
+
+    <div class="concept-box">
+        <h4>🎯 重点：可忽略性假设（Ignorability）</h4>
+        <p>这是最关键的假设。它说：</p>
+        <blockquote style="background: #e7f3ff; padding: 15px; border-left: 3px solid #007bff;">
+            <strong>给定观察到的协变量X，处理分配就像是随机的一样。</strong>
+        </blockquote>
+        <p>换句话说，所有影响处理和结果的混淆因素都包含在X中了。</p>
+        
+        <p><strong>数学推导</strong>：在可忽略性下</p>
+        <p style="text-align: center;">
+            \( E[Y(1)|D=1, X] = E[Y(1)|X] \) （控制了X后，D与Y(1)独立）<br>
+            \( E[Y(0)|D=0, X] = E[Y(0)|X] \) （同理）
+        </p>
+        
+        <p>因此，<strong>条件ATE</strong>可以识别：</p>
+        <p style="text-align: center; font-size: 18px;">
+            \( \tau(x) = E[Y|D=1, X=x] - E[Y|D=0, X=x] = E[Y(1)-Y(0)|X=x] \)
+        </p>
+        
+        <p>然后对X求期望得到ATE：</p>
+        <p style="text-align: center;">
+            \( \tau_{ATE} = E_X[\tau(X)] \)
+        </p>
+    </div>
+
+    <div class="warning-box">
+        <h4>⚠️ 重叠假设（Overlap）的重要性</h4>
+        <p>即使满足可忽略性，如果没有重叠，我们仍然无法识别因果效应。</p>
+        
+        <p><strong>极端例子</strong>：研究"上北大对收入的影响"</p>
+        <ul>
+            <li>如果某些特征X（如高考满分）的人<strong>必然</strong>上北大（P(D=1|X)=1）</li>
+            <li>对于这些X，我们观察不到"不上北大"的反事实 \(Y(0)\)</li>
+            <li>必须<strong>外推</strong>其他X的人群的效应到这群人</li>
+            <li>这种外推依赖模型假设，不可检验</li>
+        </ul>
+        
+        <p><strong>实践建议</strong>：检查倾向得分（Propensity Score）分布，去掉没有共同支撑的区域。</p>
+    </div>
+
+    <!-- 与第一部分的连接 -->
+    <div style="background: #d4edda; border-left: 4px solid #28a745; padding: 20px; margin: 30px 0; border-radius: 5px;">
+        <h3>🔗 连接第一部分：控制变量的作用</h3>
+        <p>现在我们可以用潜在结果框架重新理解<strong>控制变量</strong>的作用：</p>
+        
+        <p><strong>控制变量的目的</strong>：让<strong>可忽略性假设</strong>成立。</p>
+        
+        <p>具体来说：</p>
+        <ol>
+            <li><strong>不控制X</strong>：\(\{Y(0), Y(1)\} \not\perp D\)，处理组和对照组的 \(Y(0)\) 分布不同 → 有选择性偏误</li>
+            <li><strong>控制X</strong>后：\(\{Y(0), Y(1)\} \perp D | X\)，在X的每个取值内，处理近似随机 → 无选择性偏误</li>
+        </ol>
+        
+        <p>这就是为什么张子尧、黄炜强调：<strong>控制变量的选择应该基于因果结构</strong>——我们需要控制所有影响处理和结果的混淆因素，使条件独立性成立。</p>
+    </div>
+
+    <!-- JavaScript for Potential Outcomes -->
+    <script>
+        // Potential Outcomes Simulation
+        function generatePotentialOutcomes(hetero, selection) {
+            let n = 400;
+            let Y0 = [], Y1 = [], D = [], X = [];
+            
+            // 生成基线潜在结果 Y(0)
+            for(let i = 0; i < n; i++) {
+                let x = Math.random() * 10;  // 协变量
+                let y0 = 50 + 2 * x + (Math.random() - 0.5) * 20;  // Y(0) 依赖 X
+                
+                // 处理效应：同质或异质
+                let tau = 5 + (hetero / 10) * (x - 5);  // 异质性程度由 slider 控制
+                let y1 = y0 + tau;
+                
+                // 处理分配：受 X 和 selection 影响
+                let prob_d = 1 / (1 + Math.exp(-(0.5 * x - 2.5 + (selection/10) * (y0 - 60) / 10)));
+                let d = Math.random() < prob_d ? 1 : 0;
+                
+                X.push(x);
+                Y0.push(y0);
+                Y1.push(y1);
+                D.push(d);
+            }
+            
+            return {X, Y0, Y1, D};
+        }
+
+        function calculateEffects(Y0, Y1, D) {
+            // ATE
+            let ate = 0;
+            for(let i = 0; i < Y0.length; i++) {
+                ate += (Y1[i] - Y0[i]);
+            }
+            ate /= Y0.length;
+            
+            // ATT
+            let att_num = 0, att_den = 0;
+            for(let i = 0; i < D.length; i++) {
+                if(D[i] === 1) {
+                    att_num += (Y1[i] - Y0[i]);
+                    att_den++;
+                }
+            }
+            let att = att_den > 0 ? att_num / att_den : 0;
+            
+            // ATU
+            let atu_num = 0, atu_den = 0;
+            for(let i = 0; i < D.length; i++) {
+                if(D[i] === 0) {
+                    atu_num += (Y1[i] - Y0[i]);
+                    atu_den++;
+                }
+            }
+            let atu = atu_den > 0 ? atu_num / atu_den : 0;
+            
+            // SDM (Simple Difference in Means)
+            let y1_mean = 0, y1_count = 0;
+            let y0_mean = 0, y0_count = 0;
+            for(let i = 0; i < D.length; i++) {
+                if(D[i] === 1) {
+                    y1_mean += Y1[i];  // 观察到的 Y(1)
+                    y1_count++;
+                } else {
+                    y0_mean += Y0[i];  // 观察到的 Y(0)
+                    y0_count++;
+                }
+            }
+            y1_mean /= y1_count;
+            y0_mean /= y0_count;
+            let sdm = y1_mean - y0_mean;
+            
+            // Selection Bias
+            let y0_treated = 0, y0_treated_count = 0;
+            let y0_control = 0, y0_control_count = 0;
+            for(let i = 0; i < D.length; i++) {
+                if(D[i] === 1) {
+                    y0_treated += Y0[i];
+                    y0_treated_count++;
+                } else {
+                    y0_control += Y0[i];
+                    y0_control_count++;
+                }
+            }
+            let selection_bias = (y0_treated / y0_treated_count) - (y0_control / y0_control_count);
+            
+            return {ate, att, atu, sdm, selection_bias};
+        }
+
+        let hetero = 5, selection = 5;
+
+        function updatePotentialOutcomes() {
+            hetero = parseInt(document.getElementById('heteroSlider').value);
+            selection = parseInt(document.getElementById('selectionSlider').value);
+            
+            document.getElementById('heteroValue').textContent = hetero;
+            document.getElementById('selectionValue').textContent = selection;
+            
+            let {X, Y0, Y1, D} = generatePotentialOutcomes(hetero, selection);
+            let effects = calculateEffects(Y0, Y1, D);
+            
+            updatePotentialPlot(X, Y0, Y1, D);
+            updateEffectsPlot(effects);
+            updateSelectionBiasPlot(effects);
+        }
+
+        function updatePotentialPlot(X, Y0, Y1, D) {
+            // Trace 1: 处理组 - 观察到的 Y(1)
+            let trace1 = {
+                x: X.filter((_, i) => D[i] === 1),
+                y: Y1.filter((_, i) => D[i] === 1),
+                mode: 'markers',
+                type: 'scatter',
+                name: '处理组 (观察 Y(1))',
+                marker: {color: 'red', size: 8, opacity: 0.7}
+            };
+            
+            // Trace 2: 处理组 - 缺失的 Y(0)
+            let trace2 = {
+                x: X.filter((_, i) => D[i] === 1),
+                y: Y0.filter((_, i) => D[i] === 1),
+                mode: 'markers',
+                type: 'scatter',
+                name: '处理组 (缺失 Y(0))',
+                marker: {color: 'pink', size: 8, opacity: 0.4, symbol: 'x'}
+            };
+            
+            // Trace 3: 对照组 - 观察到的 Y(0)
+            let trace3 = {
+                x: X.filter((_, i) => D[i] === 0),
+                y: Y0.filter((_, i) => D[i] === 0),
+                mode: 'markers',
+                type: 'scatter',
+                name: '对照组 (观察 Y(0))',
+                marker: {color: 'blue', size: 8, opacity: 0.7}
+            };
+            
+            // Trace 4: 对照组 - 缺失的 Y(1)
+            let trace4 = {
+                x: X.filter((_, i) => D[i] === 0),
+                y: Y1.filter((_, i) => D[i] === 0),
+                mode: 'markers',
+                type: 'scatter',
+                name: '对照组 (缺失 Y(1))',
+                marker: {color: 'lightblue', size: 8, opacity: 0.4, symbol: 'x'}
+            };
+            
+            let layout = {
+                title: `潜在结果分布 (异质性=${hetero}, 选择性=${selection})`,
+                xaxis: {title: '协变量 X'},
+                yaxis: {title: '结果 Y'},
+                showlegend: true
+            };
+            
+            Plotly.newPlot('potentialPlot', [trace1, trace2, trace3, trace4], layout);
+        }
+
+        function updateEffectsPlot(effects) {
+            let trace = {
+                x: ['ATE', 'ATT', 'ATU', 'SDM\n(有偏)'],
+                y: [effects.ate, effects.att, effects.atu, effects.sdm],
+                type: 'bar',
+                marker: {
+                    color: ['green', 'orange', 'blue', 'red']
+                },
+                text: [effects.ate.toFixed(2), effects.att.toFixed(2), 
+                       effects.atu.toFixed(2), effects.sdm.toFixed(2)],
+                textposition: 'auto'
+            };
+            
+            let layout = {
+                title: '三类平均处理效应 + SDM 估计量对比',
+                yaxis: {title: '效应大小'},
+                showlegend: false
+            };
+            
+            Plotly.newPlot('effectsPlot', [trace], layout);
+        }
+
+        function updateSelectionBiasPlot(effects) {
+            let trace = {
+                x: ['ATT\n(真实效应)', '选择性偏误', 'SDM\n(估计量)'],
+                y: [effects.att, effects.selection_bias, effects.sdm],
+                type: 'bar',
+                marker: {
+                    color: ['orange', 'purple', 'red']
+                },
+                text: [effects.att.toFixed(2), effects.selection_bias.toFixed(2), 
+                       effects.sdm.toFixed(2)],
+                textposition: 'auto'
+            };
+            
+            let layout = {
+                title: 'SDM 的分解：真实效应 + 选择性偏误',
+                yaxis: {title: '数值'},
+                showlegend: false,
+                annotations: [{
+                    x: 'SDM\n(估计量)',
+                    y: effects.sdm,
+                    text: `SDM = ATT + 偏误\n${effects.sdm.toFixed(2)} = ${effects.att.toFixed(2)} + ${effects.selection_bias.toFixed(2)}`,
+                    showarrow: true,
+                    arrowhead: 2,
+                    ax: 0,
+                    ay: -40
+                }]
+            };
+            
+            Plotly.newPlot('selectionBiasPlot', [trace], layout);
+        }
+
+        // Initialize potential outcomes sliders
+        document.getElementById('heteroSlider').addEventListener('input', function() {
+            document.getElementById('heteroValue').textContent = this.value;
+        });
+        document.getElementById('selectionSlider').addEventListener('input', function() {
+            document.getElementById('selectionValue').textContent = this.value;
+        });
+    </script>
+
+    <!-- 总结 -->
+    <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-top: 50px;">
+        <h3>📚 本章小结</h3>
+        <ul>
+            <li><strong>潜在结果框架</strong>：因果推断的基础，定义 \(Y(1)\) 和 \(Y(0)\) 为个体的两种潜在状态</li>
+            <li><strong>三类效应</strong>：ATE（总体）、ATT（处理组）、ATU（对照组），研究者需根据问题选择合适的目标</li>
+            <li><strong>选择性偏误</strong>：SDM 的问题在于比较了基线不同的群体，\(E[Y(0)|D=1] \neq E[Y(0)|D=0]\)</li>
+            <li><strong>识别假设</strong>：SUTVA（一致性+无干扰）、可忽略性（无未观察混淆）、重叠（正值性）</li>
+            <li><strong>控制变量的目的</strong>：通过控制混淆因素X，使可忽略性假设成立，从而消除选择性偏误</li>
+        </ul>
+        
+        <p style="margin-top: 20px;">
+            <strong>下一步</strong>：学习如何用控制变量、匹配、回归、工具变量等方法在观察性数据中实现因果识别。
+        </p>
+    </div>
+
+</body></html>
