@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电价市场化改革的市场势力之谜 - 微信公众号长图版</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     <style>
         /* ===== 微信公众号长图专用样式 ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -293,6 +306,50 @@
             font-size: 36px;
             font-family: "Times New Roman", serif;
             color: #333;
+        }
+
+        .formula-note {
+            font-size: 24px;
+            color: #6c757d;
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: #ffffff;
+            border: 3px solid #e1e8ed;
+            border-radius: 20px;
+            padding: 24px;
+            margin: 40px 0;
+        }
+
+        .chart-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: #1e3a5f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-image {
+            width: 100%;
+            border-radius: 12px;
+            border: 2px solid #edf2f7;
+            display: block;
+        }
+
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            font-size: 20px;
+            line-height: 1.7;
+            border-radius: 14px;
+            padding: 24px;
+            overflow-x: auto;
+            margin: 26px 0;
+            white-space: pre;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         }
         
         /* 视觉分隔 */
@@ -615,6 +672,43 @@
                 <div class="section-number">6</div>
                 <h2 class="section-title">方法论反思：这篇论文的边界</h2>
             </div>
+
+            <h3 class="subsection-title">📐 成本传导的核心估计式（MathJax）</h3>
+            <div class="formula">
+                &#92;[
+                P_t = &#92;alpha + &#92;beta C_t + &#92;gamma X_t + &#92;varepsilon_t
+                &#92;]
+            </div>
+            <div class="formula-note">其中 &#92;(&#92;beta&#92;) 表示成本传导率；若 &#92;(&#92;beta&lt;1&#92;)，通常意味着不完全传导与市场势力并存。</div>
+
+            <h3 class="subsection-title">ATE vs ATT vs ATU</h3>
+            <p class="text">微信环境不支持MathJax渲染，请访问gh page查看完整版本！</p>
+
+            <div class="code-block"># 预设参数（示意）
+import numpy as np
+
+# 三类效应（示意值）
+effects = {
+    "ATE": 0.557,  # 全体平均处理效应
+    "ATT": 0.612,  # 已处理群体平均处理效应
+    "ATU": 0.487   # 未处理群体平均处理效应
+}
+
+print(effects)</div>
+
+            <div class="chart-card">
+                <div class="chart-title">ATE / ATT / ATU 对比图（预渲染静态图）</div>
+                <img class="chart-image" src="./assets/images/wechat/ate_att_atu_static.png" alt="ATE ATT ATU 预渲染图表">
+            </div>
+
+            <div class="formula">
+                &#92;[
+                ATE=E[Y(1)-Y(0)],&#92;quad
+                ATT=E[Y(1)-Y(0)&#92;mid D=1],&#92;quad
+                ATU=E[Y(1)-Y(0)&#92;mid D=0]
+                &#92;]
+            </div>
+            <div class="formula-note">微信公众号不支持MathJax渲染，请访问gh page查看完整版本！</div>
             
             <h3 class="subsection-title">👍 论文的贡献</h3>
             <ul class="list">
@@ -693,10 +787,6 @@
                 进行深度解读与批判性分析<br><br>
                 更多精彩内容，敬请关注
             </p>
-            <div class="qr-placeholder">
-                [二维码占位]<br>
-                扫码阅读原文
-            </div>
         </div>
     </div>
     
