@@ -10,6 +10,18 @@
     
     <!-- MathJax -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <!-- PyScript -->
@@ -385,13 +397,13 @@
         <p>要理解这个55.7%的含义，我们需要回到<strong>寡头竞争理论</strong>。论文构建了一个简洁而有力的分析框架：</p>
         
         <div style="background: #f8f9fa; padding: 24px; border-radius: 12px; margin: 24px 0; overflow-x: auto;">
-            $$P_t = \\alpha + \\beta \\cdot MC_t + \\gamma X_t + \\epsilon_t$$
+            $$P_t = \alpha + \beta \cdot MC_t + \gamma X_t + \epsilon_t$$
         </div>
         
         <p>这里的<span style="font-family: serif; font-style: italic;">β</span>就是成本传导率。在完全竞争下，<span style="font-family: serif; font-style: italic;">β</span>=1；在垄断下，<span style="font-family: serif; font-style: italic;">β</span>&lt;1。论文的核心创新在于进一步分解：</p>
         
         <div style="background: #f8f9fa; padding: 24px; border-radius: 12px; margin: 24px 0; overflow-x: auto;">
-            $$P_t = \\alpha + \\beta_f \\cdot FC_t + \\beta_c \\cdot CC_t + \\gamma X_t + \\epsilon_t$$
+            $$P_t = \alpha + \beta_f \cdot FC_t + \beta_c \cdot CC_t + \gamma X_t + \epsilon_t$$
         </div>
         
         <p>其中<span style="font-family: serif; font-style: italic;">β<sub>f</sub></span>是燃料成本传导率，<span style="font-family: serif; font-style: italic;">β<sub>c</sub></span>是碳成本传导率。这让我们能够分别评估传统能源价格和碳排放价格的市场化传导效果。</p>
@@ -401,7 +413,7 @@
         <p>更有趣的是成本传导率与市场势力的理论关系。根据寡头模型，可以推导出：</p>
         
         <div style="background: #f8f9fa; padding: 24px; border-radius: 12px; margin: 24px 0; overflow-x: auto;">
-            $$\\rho = \\frac{1}{1 + \\frac{1}{|\\epsilon_D| \\cdot \\mu}}$$
+            $$\rho = \frac{1}{1 + \frac{1}{|\epsilon_D| \cdot \mu}}$$
         </div>
         
         <p>其中|ε<sub>D</sub>|是需求价格弹性的绝对值，μ是勒纳指数（Lerner Index，衡量市场势力的指标）。这个公式告诉我们：<strong>需求弹性越小、市场势力越强，成本传导率就越低。</strong></p>

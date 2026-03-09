@@ -4,11 +4,11 @@
 """
 
 import json
-import re
 import os
+import re
 import shutil
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 from urllib.parse import quote
 
 try:
@@ -276,6 +276,18 @@ def save_article_html(article: dict):
     print(f"  ✓ 生成: {output_path}")
 
 
+def load_existing_index_articles(index_file: Path) -> list:
+    """读取已有 index.json 的 articles（若存在）"""
+    if not index_file.exists():
+        return []
+    try:
+        with open(index_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data.get("articles", []) if isinstance(data, dict) else []
+    except Exception:
+        return []
+
+
 def main():
     """主函数"""
     print("🔨 开始构建...")
@@ -286,10 +298,8 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     
-    # 清空旧的文章 HTML
-    if OUTPUT_DIR.exists():
-        shutil.rmtree(OUTPUT_DIR)
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    # 增量构建：不删除旧 HTML，避免误删手工维护页面
+    # 仅覆盖同名文档生成的 HTML
     
     articles = []
     failed_files = []
@@ -331,27 +341,45 @@ def main():
     graph = build_graph(articles)
     print(f"  节点: {len(graph['nodes'])}, 连接: {len(graph['links'])}")
     
-    # 保存主索引
+    # 保存主索引（并保留已有 index.json 中的非 docs 条目）
+    existing_index_file = DATA_DIR / "index.json"
+    existing_articles = load_existing_index_articles(existing_index_file)
+    built_ids = {a['id'] for a in articles}
+
+    preserved_articles = []
+    for item in existing_articles:
+        item_id = item.get("id")
+        html_path = item.get("html_path", "")
+        html_file = SITE_DIR / html_path if html_path else None
+        if not item_id or item_id in built_ids:
+            continue
+        # 仅保留页面文件仍存在的历史条目
+        if html_file and html_file.exists():
+            preserved_articles.append(item)
+
+    merged_articles = [{
+        'id': a['id'],
+        'title': a['title'],
+        'authors': a['authors'],
+        'year': a['year'],
+        'tags': a['tags'],
+        'category': a['category'],
+        'venue': a['venue'],
+        'summary': a['summary'],
+        'html_path': a['html_path'],
+        'concepts': a['concepts'],
+        'updated': a['updated']
+    } for a in articles] + preserved_articles
+
     index_data = {
-        "articles": [{
-            'id': a['id'],
-            'title': a['title'],
-            'authors': a['authors'],
-            'year': a['year'],
-            'tags': a['tags'],
-            'category': a['category'],
-            'venue': a['venue'],
-            'summary': a['summary'],
-            'html_path': a['html_path'],
-            'concepts': a['concepts'],
-            'updated': a['updated']
-        } for a in articles],
+        "articles": merged_articles,
         "concepts": concept_index,
         "authors": author_index,
         "graph": graph,
         "metadata": {
             "generated_at": datetime.now().isoformat(),
             "total_articles": len(articles),
+            "preserved_articles": len(preserved_articles),
             "total_concepts": concept_index['total_concepts'],
             "total_authors": author_index['total_authors']
         }
@@ -364,6 +392,7 @@ def main():
     print(f"\n💾 索引已保存: {output_file}")
     print(f"\n📊 统计:")
     print(f"  - 文章: {len(articles)} 篇")
+    print(f"  - 保留历史条目: {len(preserved_articles)} 篇")
     print(f"  - 概念: {concept_index['total_concepts']} 个")
     print(f"  - 作者: {author_index['total_authors']} 位")
     print(f"  - 图谱节点: {len(graph['nodes'])} 个")
