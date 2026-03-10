@@ -23,23 +23,23 @@
       "summary": "首次明确提出'皇权不下县'理论命题，梳理1949-1999年农村制度变迁历程，提出以合作社建设和税费改革为核心的基层治理改革方案。",
       "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html",
       "concepts": [
-        "小农村社经济",
-        "城乡二元结构",
+        "两权分离",
         "吴重庆",
-        "周飞舟、",
+        "产权两级构造",
+        "梁漱溟",
         "秦晖",
         "皇权不下县",
-        "制度费用",
-        "两田制",
-        "产权两级构造",
-        "贺雪峰",
         "吴毅",
+        "城乡二元结构",
         "费孝通",
-        "张静",
-        "两权分离",
+        "渠敬东",
+        "小农村社经济",
+        "制度费用",
+        "贺雪峰",
         "人地关系",
-        "梁漱溟",
-        "渠敬东"
+        "周飞舟、",
+        "张静",
+        "两田制"
       ],
       "updated": "2026-03-10T13:31:44.070616"
     },
@@ -67,28 +67,28 @@
       "summary": "分析改革开放30年中国国家治理从总体支配向技术治理转型的机制、成效与内在张力，揭示程序技术与经营技术混同的结构性困境",
       "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html",
       "concepts": [
-        "压力型体制",
-        "运动式治理",
+        "韦伯",
+        "行政科层化",
+        "经营城市",
+        "分税制",
+        "渠敬东",
+        "土地财政",
+        "应星",
+        "渠敬东、周飞舟",
+        "周飞舟",
         "周雪光",
         "目标责任制",
-        "行政发包制",
-        "分税制、",
-        "财政包干制",
         "韦伯式官僚制",
-        "经营城市",
-        "韦伯",
-        "技术治理",
-        "应星",
-        "土地财政",
-        "渠敬东",
-        "周飞舟",
-        "分税制",
         "项目制",
         "用户",
-        "渠敬东、周飞舟",
+        "技术治理",
+        "双轨制、",
+        "行政发包制",
+        "压力型体制",
+        "运动式治理",
         "福柯",
-        "行政科层化",
-        "双轨制、"
+        "分税制、",
+        "财政包干制"
       ],
       "updated": "2026-03-07T17:43:49.736380"
     },
@@ -110,13 +110,13 @@
       "summary": "分析项目制作为新型国家治理体制的运行机制及其社会影响",
       "html_path": "articles/渠敬东_2012_项目制.html",
       "concepts": [
-        "压力型体制",
+        "周雪光",
+        "基层政府间共谋现象",
         "行政发包制",
-        "锦标赛体制",
+        "压力型体制",
         "渠敬东",
         "技术治理",
-        "周雪光",
-        "基层政府间共谋现象"
+        "锦标赛体制"
       ],
       "updated": "2026-03-07T16:46:06.368169"
     },
@@ -144,18 +144,62 @@
       "summary": "基于江苏吴江调查，提出小城镇是农村政治经济文化中心、农村剩余劳动力'蓄水池'，'离土不离乡'是中国特色城镇化道路的经典论述。",
       "html_path": "articles/费孝通_1983_小城镇大问题.html",
       "concepts": [
-        "周其仁",
+        "陆学艺",
+        "沈关宝",
         "吴景超",
         "中共中央国务院",
-        "赵佳佳",
-        "陆学艺",
-        "张江华",
-        "黄祖辉",
-        "概念",
+        "周其仁",
         "费孝通",
-        "沈关宝"
+        "概念",
+        "黄祖辉",
+        "赵佳佳",
+        "张江华"
       ],
       "updated": "2026-03-08T13:55:37.090788"
+    },
+    {
+      "id": "折晓叶_1996_村庄边界的多元化",
+      "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+      "authors": [
+        "折晓叶"
+      ],
+      "year": 1996,
+      "tags": [
+        "超级村庄",
+        "村庄边界",
+        "乡村工业化",
+        "村籍制度",
+        "城乡关系",
+        "集体经济",
+        "社会封闭性",
+        "中间社区"
+      ],
+      "category": "papers",
+      "venue": "《中国社会科学》第3期，页码66-78",
+      "summary": "通过对8个超级村庄的个案研究，提出村庄边界多元化理论框架，发现经济边界开放与社会边界封闭同时并存且互为因果，超级村庄形成独特的'中间社区'形态。",
+      "html_path": "articles/折晓叶_1996_村庄边界的多元化.html",
+      "concepts": [
+        "就地工业化",
+        "吴毅",
+        "渠敬东",
+        "村籍制度",
+        "周飞舟、",
+        "经济边界开放",
+        "李培林",
+        "张静",
+        "陈婴婴",
+        "社会边界封闭",
+        "施坚雅",
+        "村庄边界",
+        "村庄合作主义",
+        "中间社区",
+        "超级村庄",
+        "城乡协同",
+        "黄宗智",
+        "费孝通",
+        "温铁军"
+      ],
+      "updated": "2026-03-10T14:00:01.004166"
     },
     {
       "id": "周雪光_2008_基层政府间的共谋现象",
@@ -176,15 +220,15 @@
       "summary": "探讨中国政府内部上下级政府间在应对上级政策指令时采取共谋行为的制度逻辑",
       "html_path": "articles/周雪光_2008_基层政府间的共谋现象.html",
       "concepts": [
-        "压力型体制",
         "目标责任制",
+        "周雪光",
         "行政发包制",
         "项目制",
-        "运动式治理",
-        "简约治理",
-        "周雪光",
         "黄宗智",
-        "渠敬东"
+        "压力型体制",
+        "运动式治理",
+        "渠敬东",
+        "简约治理"
       ],
       "updated": "2026-03-07T16:45:55.834322"
     },
@@ -207,13 +251,13 @@
       "summary": "理解中国政府间关系的核心概念，描述中央向地方逐级发包行政任务的治理模式",
       "html_path": "articles/行政发包制.html",
       "concepts": [
+        "周雪光",
         "压力型体制",
-        "基层政府间的共谋现象",
-        "周黎安",
-        "锦标赛体制",
         "项目制",
+        "周黎安",
         "简约治理",
-        "周雪光"
+        "基层政府间的共谋现象",
+        "锦标赛体制"
       ],
       "updated": "2026-03-07T16:46:11.306608"
     },
@@ -311,7 +355,7 @@
     "concepts": [
       {
         "concept": "渠敬东",
-        "article_count": 4,
+        "article_count": 5,
         "articles": [
           {
             "id": "温铁军_1999_半个世纪的农村制度变迁",
@@ -343,6 +387,15 @@
             "html_path": "articles/渠敬东_2012_项目制.html"
           },
           {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          },
+          {
             "id": "周雪光_2008_基层政府间的共谋现象",
             "title": "基层政府间的共谋现象",
             "authors": [
@@ -354,8 +407,61 @@
         ],
         "mentioned_by": [
           "周飞舟",
-          "温铁军",
           "周雪光",
+          "应星",
+          "渠敬东",
+          "折晓叶",
+          "温铁军"
+        ]
+      },
+      {
+        "concept": "周雪光",
+        "article_count": 4,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          },
+          {
+            "id": "渠敬东_2012_项目制",
+            "title": "项目制：一种新型国家治理体制",
+            "authors": [
+              "渠敬东"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_2012_项目制.html"
+          },
+          {
+            "id": "周雪光_2008_基层政府间的共谋现象",
+            "title": "基层政府间的共谋现象",
+            "authors": [
+              "周雪光"
+            ],
+            "category": "papers",
+            "html_path": "articles/周雪光_2008_基层政府间的共谋现象.html"
+          },
+          {
+            "id": "行政发包制",
+            "title": "行政发包制",
+            "authors": [
+              "周黎安",
+              "周雪光"
+            ],
+            "category": "concepts",
+            "html_path": "articles/行政发包制.html"
+          }
+        ],
+        "mentioned_by": [
+          "周飞舟",
+          "周雪光",
+          "周黎安",
           "应星",
           "渠敬东"
         ]
@@ -406,103 +512,48 @@
         ],
         "mentioned_by": [
           "周飞舟",
-          "周黎安",
           "周雪光",
+          "周黎安",
           "应星",
           "渠敬东"
         ]
       },
       {
-        "concept": "周雪光",
-        "article_count": 4,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          },
-          {
-            "id": "渠敬东_2012_项目制",
-            "title": "项目制：一种新型国家治理体制",
-            "authors": [
-              "渠敬东"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_2012_项目制.html"
-          },
-          {
-            "id": "周雪光_2008_基层政府间的共谋现象",
-            "title": "基层政府间的共谋现象",
-            "authors": [
-              "周雪光"
-            ],
-            "category": "papers",
-            "html_path": "articles/周雪光_2008_基层政府间的共谋现象.html"
-          },
-          {
-            "id": "行政发包制",
-            "title": "行政发包制",
-            "authors": [
-              "周黎安",
-              "周雪光"
-            ],
-            "category": "concepts",
-            "html_path": "articles/行政发包制.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "周黎安",
-          "周雪光",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "行政发包制",
+        "concept": "费孝通",
         "article_count": 3,
         "articles": [
           {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "id": "温铁军_1999_半个世纪的农村制度变迁",
+            "title": "半个世纪的农村制度变迁",
             "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
+              "温铁军"
             ],
             "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
           },
           {
-            "id": "渠敬东_2012_项目制",
-            "title": "项目制：一种新型国家治理体制",
+            "id": "费孝通_1983_小城镇大问题",
+            "title": "小城镇，大问题",
             "authors": [
-              "渠敬东"
+              "费孝通"
             ],
             "category": "papers",
-            "html_path": "articles/渠敬东_2012_项目制.html"
+            "html_path": "articles/费孝通_1983_小城镇大问题.html"
           },
           {
-            "id": "周雪光_2008_基层政府间的共谋现象",
-            "title": "基层政府间的共谋现象",
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
             "authors": [
-              "周雪光"
+              "折晓叶"
             ],
             "category": "papers",
-            "html_path": "articles/周雪光_2008_基层政府间的共谋现象.html"
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
           }
         ],
         "mentioned_by": [
-          "周雪光",
-          "周飞舟",
-          "应星",
-          "渠敬东"
+          "折晓叶",
+          "费孝通",
+          "温铁军"
         ]
       },
       {
@@ -542,43 +593,15 @@
         ],
         "mentioned_by": [
           "周飞舟",
-          "周黎安",
           "周雪光",
+          "周黎安",
           "应星",
           "渠敬东"
         ]
       },
       {
-        "concept": "费孝通",
-        "article_count": 2,
-        "articles": [
-          {
-            "id": "温铁军_1999_半个世纪的农村制度变迁",
-            "title": "半个世纪的农村制度变迁",
-            "authors": [
-              "温铁军"
-            ],
-            "category": "papers",
-            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
-          },
-          {
-            "id": "费孝通_1983_小城镇大问题",
-            "title": "小城镇，大问题",
-            "authors": [
-              "费孝通"
-            ],
-            "category": "papers",
-            "html_path": "articles/费孝通_1983_小城镇大问题.html"
-          }
-        ],
-        "mentioned_by": [
-          "温铁军",
-          "费孝通"
-        ]
-      },
-      {
-        "concept": "运动式治理",
-        "article_count": 2,
+        "concept": "行政发包制",
+        "article_count": 3,
         "articles": [
           {
             "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
@@ -592,6 +615,15 @@
             "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
           },
           {
+            "id": "渠敬东_2012_项目制",
+            "title": "项目制：一种新型国家治理体制",
+            "authors": [
+              "渠敬东"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_2012_项目制.html"
+          },
+          {
             "id": "周雪光_2008_基层政府间的共谋现象",
             "title": "基层政府间的共谋现象",
             "authors": [
@@ -602,10 +634,94 @@
           }
         ],
         "mentioned_by": [
-          "周雪光",
+          "渠敬东",
           "周飞舟",
-          "应星",
-          "渠敬东"
+          "周雪光",
+          "应星"
+        ]
+      },
+      {
+        "concept": "吴毅",
+        "article_count": 2,
+        "articles": [
+          {
+            "id": "温铁军_1999_半个世纪的农村制度变迁",
+            "title": "半个世纪的农村制度变迁",
+            "authors": [
+              "温铁军"
+            ],
+            "category": "papers",
+            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
+          },
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶",
+          "温铁军"
+        ]
+      },
+      {
+        "concept": "周飞舟、",
+        "article_count": 2,
+        "articles": [
+          {
+            "id": "温铁军_1999_半个世纪的农村制度变迁",
+            "title": "半个世纪的农村制度变迁",
+            "authors": [
+              "温铁军"
+            ],
+            "category": "papers",
+            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
+          },
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶",
+          "温铁军"
+        ]
+      },
+      {
+        "concept": "张静",
+        "article_count": 2,
+        "articles": [
+          {
+            "id": "温铁军_1999_半个世纪的农村制度变迁",
+            "title": "半个世纪的农村制度变迁",
+            "authors": [
+              "温铁军"
+            ],
+            "category": "papers",
+            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
+          },
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶",
+          "温铁军"
         ]
       },
       {
@@ -634,10 +750,10 @@
           }
         ],
         "mentioned_by": [
-          "周雪光",
+          "渠敬东",
           "周飞舟",
-          "应星",
-          "渠敬东"
+          "周雪光",
+          "应星"
         ]
       },
       {
@@ -666,9 +782,41 @@
           }
         ],
         "mentioned_by": [
+          "渠敬东",
           "周飞舟",
-          "应星",
-          "渠敬东"
+          "应星"
+        ]
+      },
+      {
+        "concept": "运动式治理",
+        "article_count": 2,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          },
+          {
+            "id": "周雪光_2008_基层政府间的共谋现象",
+            "title": "基层政府间的共谋现象",
+            "authors": [
+              "周雪光"
+            ],
+            "category": "papers",
+            "html_path": "articles/周雪光_2008_基层政府间的共谋现象.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "周雪光",
+          "应星"
         ]
       },
       {
@@ -696,9 +844,37 @@
           }
         ],
         "mentioned_by": [
+          "渠敬东",
           "周黎安",
-          "周雪光",
-          "渠敬东"
+          "周雪光"
+        ]
+      },
+      {
+        "concept": "黄宗智",
+        "article_count": 2,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          },
+          {
+            "id": "周雪光_2008_基层政府间的共谋现象",
+            "title": "基层政府间的共谋现象",
+            "authors": [
+              "周雪光"
+            ],
+            "category": "papers",
+            "html_path": "articles/周雪光_2008_基层政府间的共谋现象.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶",
+          "周雪光"
         ]
       },
       {
@@ -731,25 +907,7 @@
         ]
       },
       {
-        "concept": "小农村社经济",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "温铁军_1999_半个世纪的农村制度变迁",
-            "title": "半个世纪的农村制度变迁",
-            "authors": [
-              "温铁军"
-            ],
-            "category": "papers",
-            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
-          }
-        ],
-        "mentioned_by": [
-          "温铁军"
-        ]
-      },
-      {
-        "concept": "城乡二元结构",
+        "concept": "两权分离",
         "article_count": 1,
         "articles": [
           {
@@ -785,7 +943,25 @@
         ]
       },
       {
-        "concept": "周飞舟、",
+        "concept": "产权两级构造",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "温铁军_1999_半个世纪的农村制度变迁",
+            "title": "半个世纪的农村制度变迁",
+            "authors": [
+              "温铁军"
+            ],
+            "category": "papers",
+            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
+          }
+        ],
+        "mentioned_by": [
+          "温铁军"
+        ]
+      },
+      {
+        "concept": "梁漱溟",
         "article_count": 1,
         "articles": [
           {
@@ -839,43 +1015,43 @@
         ]
       },
       {
+        "concept": "城乡二元结构",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "温铁军_1999_半个世纪的农村制度变迁",
+            "title": "半个世纪的农村制度变迁",
+            "authors": [
+              "温铁军"
+            ],
+            "category": "papers",
+            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
+          }
+        ],
+        "mentioned_by": [
+          "温铁军"
+        ]
+      },
+      {
+        "concept": "小农村社经济",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "温铁军_1999_半个世纪的农村制度变迁",
+            "title": "半个世纪的农村制度变迁",
+            "authors": [
+              "温铁军"
+            ],
+            "category": "papers",
+            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
+          }
+        ],
+        "mentioned_by": [
+          "温铁军"
+        ]
+      },
+      {
         "concept": "制度费用",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "温铁军_1999_半个世纪的农村制度变迁",
-            "title": "半个世纪的农村制度变迁",
-            "authors": [
-              "温铁军"
-            ],
-            "category": "papers",
-            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
-          }
-        ],
-        "mentioned_by": [
-          "温铁军"
-        ]
-      },
-      {
-        "concept": "两田制",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "温铁军_1999_半个世纪的农村制度变迁",
-            "title": "半个世纪的农村制度变迁",
-            "authors": [
-              "温铁军"
-            ],
-            "category": "papers",
-            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
-          }
-        ],
-        "mentioned_by": [
-          "温铁军"
-        ]
-      },
-      {
-        "concept": "产权两级构造",
         "article_count": 1,
         "articles": [
           {
@@ -911,60 +1087,6 @@
         ]
       },
       {
-        "concept": "吴毅",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "温铁军_1999_半个世纪的农村制度变迁",
-            "title": "半个世纪的农村制度变迁",
-            "authors": [
-              "温铁军"
-            ],
-            "category": "papers",
-            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
-          }
-        ],
-        "mentioned_by": [
-          "温铁军"
-        ]
-      },
-      {
-        "concept": "张静",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "温铁军_1999_半个世纪的农村制度变迁",
-            "title": "半个世纪的农村制度变迁",
-            "authors": [
-              "温铁军"
-            ],
-            "category": "papers",
-            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
-          }
-        ],
-        "mentioned_by": [
-          "温铁军"
-        ]
-      },
-      {
-        "concept": "两权分离",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "温铁军_1999_半个世纪的农村制度变迁",
-            "title": "半个世纪的农村制度变迁",
-            "authors": [
-              "温铁军"
-            ],
-            "category": "papers",
-            "html_path": "articles/温铁军_1999_半个世纪的农村制度变迁.html"
-          }
-        ],
-        "mentioned_by": [
-          "温铁军"
-        ]
-      },
-      {
         "concept": "人地关系",
         "article_count": 1,
         "articles": [
@@ -983,7 +1105,7 @@
         ]
       },
       {
-        "concept": "梁漱溟",
+        "concept": "两田制",
         "article_count": 1,
         "articles": [
           {
@@ -998,94 +1120,6 @@
         ],
         "mentioned_by": [
           "温铁军"
-        ]
-      },
-      {
-        "concept": "分税制、",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "财政包干制",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "韦伯式官僚制",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "经营城市",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
         ]
       },
       {
@@ -1105,163 +1139,9 @@
           }
         ],
         "mentioned_by": [
+          "渠敬东",
           "周飞舟",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "应星",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "土地财政",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "周飞舟",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "分税制",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "用户",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "渠敬东、周飞舟",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
-        ]
-      },
-      {
-        "concept": "福柯",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
-            "authors": [
-              "渠敬东",
-              "周飞舟",
-              "应星"
-            ],
-            "category": "papers",
-            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
-          }
-        ],
-        "mentioned_by": [
-          "周飞舟",
-          "应星",
-          "渠敬东"
+          "应星"
         ]
       },
       {
@@ -1281,9 +1161,185 @@
           }
         ],
         "mentioned_by": [
+          "渠敬东",
           "周飞舟",
-          "应星",
-          "渠敬东"
+          "应星"
+        ]
+      },
+      {
+        "concept": "经营城市",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
+        ]
+      },
+      {
+        "concept": "分税制",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
+        ]
+      },
+      {
+        "concept": "土地财政",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
+        ]
+      },
+      {
+        "concept": "应星",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
+        ]
+      },
+      {
+        "concept": "渠敬东、周飞舟",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
+        ]
+      },
+      {
+        "concept": "周飞舟",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
+        ]
+      },
+      {
+        "concept": "韦伯式官僚制",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
+        ]
+      },
+      {
+        "concept": "用户",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
         ]
       },
       {
@@ -1303,9 +1359,75 @@
           }
         ],
         "mentioned_by": [
+          "渠敬东",
           "周飞舟",
-          "应星",
-          "渠敬东"
+          "应星"
+        ]
+      },
+      {
+        "concept": "福柯",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
+        ]
+      },
+      {
+        "concept": "分税制、",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
+        ]
+      },
+      {
+        "concept": "财政包干制",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+            "title": "从总体支配到技术治理——基于中国30年改革经验的社会学分析",
+            "authors": [
+              "渠敬东",
+              "周飞舟",
+              "应星"
+            ],
+            "category": "papers",
+            "html_path": "articles/渠敬东_周飞舟_应星_2009_从总体支配到技术治理.html"
+          }
+        ],
+        "mentioned_by": [
+          "渠敬东",
+          "周飞舟",
+          "应星"
         ]
       },
       {
@@ -1327,7 +1449,25 @@
         ]
       },
       {
-        "concept": "周其仁",
+        "concept": "陆学艺",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "费孝通_1983_小城镇大问题",
+            "title": "小城镇，大问题",
+            "authors": [
+              "费孝通"
+            ],
+            "category": "papers",
+            "html_path": "articles/费孝通_1983_小城镇大问题.html"
+          }
+        ],
+        "mentioned_by": [
+          "费孝通"
+        ]
+      },
+      {
+        "concept": "沈关宝",
         "article_count": 1,
         "articles": [
           {
@@ -1381,61 +1521,7 @@
         ]
       },
       {
-        "concept": "赵佳佳",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "费孝通_1983_小城镇大问题",
-            "title": "小城镇，大问题",
-            "authors": [
-              "费孝通"
-            ],
-            "category": "papers",
-            "html_path": "articles/费孝通_1983_小城镇大问题.html"
-          }
-        ],
-        "mentioned_by": [
-          "费孝通"
-        ]
-      },
-      {
-        "concept": "陆学艺",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "费孝通_1983_小城镇大问题",
-            "title": "小城镇，大问题",
-            "authors": [
-              "费孝通"
-            ],
-            "category": "papers",
-            "html_path": "articles/费孝通_1983_小城镇大问题.html"
-          }
-        ],
-        "mentioned_by": [
-          "费孝通"
-        ]
-      },
-      {
-        "concept": "张江华",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "费孝通_1983_小城镇大问题",
-            "title": "小城镇，大问题",
-            "authors": [
-              "费孝通"
-            ],
-            "category": "papers",
-            "html_path": "articles/费孝通_1983_小城镇大问题.html"
-          }
-        ],
-        "mentioned_by": [
-          "费孝通"
-        ]
-      },
-      {
-        "concept": "黄祖辉",
+        "concept": "周其仁",
         "article_count": 1,
         "articles": [
           {
@@ -1471,7 +1557,7 @@
         ]
       },
       {
-        "concept": "沈关宝",
+        "concept": "黄祖辉",
         "article_count": 1,
         "articles": [
           {
@@ -1489,20 +1575,292 @@
         ]
       },
       {
-        "concept": "黄宗智",
+        "concept": "赵佳佳",
         "article_count": 1,
         "articles": [
           {
-            "id": "周雪光_2008_基层政府间的共谋现象",
-            "title": "基层政府间的共谋现象",
+            "id": "费孝通_1983_小城镇大问题",
+            "title": "小城镇，大问题",
             "authors": [
-              "周雪光"
+              "费孝通"
             ],
             "category": "papers",
-            "html_path": "articles/周雪光_2008_基层政府间的共谋现象.html"
+            "html_path": "articles/费孝通_1983_小城镇大问题.html"
           }
         ],
         "mentioned_by": [
+          "费孝通"
+        ]
+      },
+      {
+        "concept": "张江华",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "费孝通_1983_小城镇大问题",
+            "title": "小城镇，大问题",
+            "authors": [
+              "费孝通"
+            ],
+            "category": "papers",
+            "html_path": "articles/费孝通_1983_小城镇大问题.html"
+          }
+        ],
+        "mentioned_by": [
+          "费孝通"
+        ]
+      },
+      {
+        "concept": "就地工业化",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "村籍制度",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "经济边界开放",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "李培林",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "陈婴婴",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "社会边界封闭",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "施坚雅",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "村庄边界",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "村庄合作主义",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "中间社区",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "超级村庄",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "城乡协同",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "温铁军",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "authors": [
+              "折晓叶"
+            ],
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ],
+        "mentioned_by": [
+          "折晓叶"
+        ]
+      },
+      {
+        "concept": "周黎安",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "行政发包制",
+            "title": "行政发包制",
+            "authors": [
+              "周黎安",
+              "周雪光"
+            ],
+            "category": "concepts",
+            "html_path": "articles/行政发包制.html"
+          }
+        ],
+        "mentioned_by": [
+          "周黎安",
           "周雪光"
         ]
       },
@@ -1525,30 +1883,10 @@
           "周黎安",
           "周雪光"
         ]
-      },
-      {
-        "concept": "周黎安",
-        "article_count": 1,
-        "articles": [
-          {
-            "id": "行政发包制",
-            "title": "行政发包制",
-            "authors": [
-              "周黎安",
-              "周雪光"
-            ],
-            "category": "concepts",
-            "html_path": "articles/行政发包制.html"
-          }
-        ],
-        "mentioned_by": [
-          "周黎安",
-          "周雪光"
-        ]
       }
     ],
-    "total_concepts": 53,
-    "generated_at": "2026-03-10T13:31:48.572969"
+    "total_concepts": 66,
+    "generated_at": "2026-03-10T14:00:07.897035"
   },
   "authors": {
     "authors": [
@@ -1645,6 +1983,19 @@
         ]
       },
       {
+        "name": "折晓叶",
+        "article_count": 1,
+        "articles": [
+          {
+            "id": "折晓叶_1996_村庄边界的多元化",
+            "title": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+            "year": 1996,
+            "category": "papers",
+            "html_path": "articles/折晓叶_1996_村庄边界的多元化.html"
+          }
+        ]
+      },
+      {
         "name": "周黎安",
         "article_count": 1,
         "articles": [
@@ -1658,7 +2009,7 @@
         ]
       }
     ],
-    "total_authors": 7
+    "total_authors": 8
   },
   "graph": {
     "nodes": [
@@ -1675,14 +2026,8 @@
         "group": 2
       },
       {
-        "id": "concept-小农村社经济",
-        "name": "小农村社经济",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-城乡二元结构",
-        "name": "城乡二元结构",
+        "id": "concept-两权分离",
+        "name": "两权分离",
         "type": "concept",
         "group": 4
       },
@@ -1693,8 +2038,14 @@
         "group": 4
       },
       {
-        "id": "concept-周飞舟、",
-        "name": "周飞舟、",
+        "id": "concept-产权两级构造",
+        "name": "产权两级构造",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-梁漱溟",
+        "name": "梁漱溟",
         "type": "concept",
         "group": 4
       },
@@ -1711,32 +2062,14 @@
         "group": 4
       },
       {
-        "id": "concept-制度费用",
-        "name": "制度费用",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-两田制",
-        "name": "两田制",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-产权两级构造",
-        "name": "产权两级构造",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-贺雪峰",
-        "name": "贺雪峰",
-        "type": "concept",
-        "group": 4
-      },
-      {
         "id": "concept-吴毅",
         "name": "吴毅",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-城乡二元结构",
+        "name": "城乡二元结构",
         "type": "concept",
         "group": 4
       },
@@ -1747,14 +2080,26 @@
         "group": 4
       },
       {
-        "id": "concept-张静",
-        "name": "张静",
+        "id": "concept-渠敬东",
+        "name": "渠敬东",
         "type": "concept",
         "group": 4
       },
       {
-        "id": "concept-两权分离",
-        "name": "两权分离",
+        "id": "concept-小农村社经济",
+        "name": "小农村社经济",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-制度费用",
+        "name": "制度费用",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-贺雪峰",
+        "name": "贺雪峰",
         "type": "concept",
         "group": 4
       },
@@ -1765,14 +2110,20 @@
         "group": 4
       },
       {
-        "id": "concept-梁漱溟",
-        "name": "梁漱溟",
+        "id": "concept-周飞舟、",
+        "name": "周飞舟、",
         "type": "concept",
         "group": 4
       },
       {
-        "id": "concept-渠敬东",
-        "name": "渠敬东",
+        "id": "concept-张静",
+        "name": "张静",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-两田制",
+        "name": "两田制",
         "type": "concept",
         "group": 4
       },
@@ -1801,14 +2152,50 @@
         "group": 2
       },
       {
-        "id": "concept-压力型体制",
-        "name": "压力型体制",
+        "id": "concept-韦伯",
+        "name": "韦伯",
         "type": "concept",
         "group": 4
       },
       {
-        "id": "concept-运动式治理",
-        "name": "运动式治理",
+        "id": "concept-行政科层化",
+        "name": "行政科层化",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-经营城市",
+        "name": "经营城市",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-分税制",
+        "name": "分税制",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-土地财政",
+        "name": "土地财政",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-应星",
+        "name": "应星",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-渠敬东、周飞舟",
+        "name": "渠敬东、周飞舟",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-周飞舟",
+        "name": "周飞舟",
         "type": "concept",
         "group": 4
       },
@@ -1825,68 +2212,8 @@
         "group": 4
       },
       {
-        "id": "concept-行政发包制",
-        "name": "行政发包制",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-分税制、",
-        "name": "分税制、",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-财政包干制",
-        "name": "财政包干制",
-        "type": "concept",
-        "group": 4
-      },
-      {
         "id": "concept-韦伯式官僚制",
         "name": "韦伯式官僚制",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-经营城市",
-        "name": "经营城市",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-韦伯",
-        "name": "韦伯",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-技术治理",
-        "name": "技术治理",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-应星",
-        "name": "应星",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-土地财政",
-        "name": "土地财政",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-周飞舟",
-        "name": "周飞舟",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-分税制",
-        "name": "分税制",
         "type": "concept",
         "group": 4
       },
@@ -1903,20 +2230,8 @@
         "group": 4
       },
       {
-        "id": "concept-渠敬东、周飞舟",
-        "name": "渠敬东、周飞舟",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-福柯",
-        "name": "福柯",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-行政科层化",
-        "name": "行政科层化",
+        "id": "concept-技术治理",
+        "name": "技术治理",
         "type": "concept",
         "group": 4
       },
@@ -1927,20 +2242,56 @@
         "group": 4
       },
       {
+        "id": "concept-行政发包制",
+        "name": "行政发包制",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-压力型体制",
+        "name": "压力型体制",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-运动式治理",
+        "name": "运动式治理",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-福柯",
+        "name": "福柯",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-分税制、",
+        "name": "分税制、",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-财政包干制",
+        "name": "财政包干制",
+        "type": "concept",
+        "group": 4
+      },
+      {
         "id": "article-渠敬东_2012_项目制",
         "name": "项目制：一种新型国家治理体制",
         "type": "papers",
         "group": 1
       },
       {
-        "id": "concept-锦标赛体制",
-        "name": "锦标赛体制",
+        "id": "concept-基层政府间共谋现象",
+        "name": "基层政府间共谋现象",
         "type": "concept",
         "group": 4
       },
       {
-        "id": "concept-基层政府间共谋现象",
-        "name": "基层政府间共谋现象",
+        "id": "concept-锦标赛体制",
+        "name": "锦标赛体制",
         "type": "concept",
         "group": 4
       },
@@ -1957,8 +2308,14 @@
         "group": 2
       },
       {
-        "id": "concept-周其仁",
-        "name": "周其仁",
+        "id": "concept-陆学艺",
+        "name": "陆学艺",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-沈关宝",
+        "name": "沈关宝",
         "type": "concept",
         "group": 4
       },
@@ -1975,26 +2332,8 @@
         "group": 4
       },
       {
-        "id": "concept-赵佳佳",
-        "name": "赵佳佳",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-陆学艺",
-        "name": "陆学艺",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-张江华",
-        "name": "张江华",
-        "type": "concept",
-        "group": 4
-      },
-      {
-        "id": "concept-黄祖辉",
-        "name": "黄祖辉",
+        "id": "concept-周其仁",
+        "name": "周其仁",
         "type": "concept",
         "group": 4
       },
@@ -2005,8 +2344,116 @@
         "group": 4
       },
       {
-        "id": "concept-沈关宝",
-        "name": "沈关宝",
+        "id": "concept-黄祖辉",
+        "name": "黄祖辉",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-赵佳佳",
+        "name": "赵佳佳",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-张江华",
+        "name": "张江华",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "article-折晓叶_1996_村庄边界的多元化",
+        "name": "村庄边界的多元化——经济边界开放与社会边界封闭的冲突与共生",
+        "type": "papers",
+        "group": 1
+      },
+      {
+        "id": "author-折晓叶",
+        "name": "折晓叶",
+        "type": "author",
+        "group": 2
+      },
+      {
+        "id": "concept-就地工业化",
+        "name": "就地工业化",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-村籍制度",
+        "name": "村籍制度",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-经济边界开放",
+        "name": "经济边界开放",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-李培林",
+        "name": "李培林",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-陈婴婴",
+        "name": "陈婴婴",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-社会边界封闭",
+        "name": "社会边界封闭",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-施坚雅",
+        "name": "施坚雅",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-村庄边界",
+        "name": "村庄边界",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-村庄合作主义",
+        "name": "村庄合作主义",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-中间社区",
+        "name": "中间社区",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-超级村庄",
+        "name": "超级村庄",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-城乡协同",
+        "name": "城乡协同",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-黄宗智",
+        "name": "黄宗智",
+        "type": "concept",
+        "group": 4
+      },
+      {
+        "id": "concept-温铁军",
+        "name": "温铁军",
         "type": "concept",
         "group": 4
       },
@@ -2029,12 +2476,6 @@
         "group": 4
       },
       {
-        "id": "concept-黄宗智",
-        "name": "黄宗智",
-        "type": "concept",
-        "group": 4
-      },
-      {
         "id": "article-行政发包制",
         "name": "行政发包制",
         "type": "concepts",
@@ -2047,14 +2488,14 @@
         "group": 2
       },
       {
-        "id": "concept-基层政府间的共谋现象",
-        "name": "基层政府间的共谋现象",
+        "id": "concept-周黎安",
+        "name": "周黎安",
         "type": "concept",
         "group": 4
       },
       {
-        "id": "concept-周黎安",
-        "name": "周黎安",
+        "id": "concept-基层政府间的共谋现象",
+        "name": "基层政府间的共谋现象",
         "type": "concept",
         "group": 4
       }
@@ -2067,12 +2508,7 @@
       },
       {
         "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-小农村社经济",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-城乡二元结构",
+        "target": "concept-两权分离",
         "type": "has_concept"
       },
       {
@@ -2082,7 +2518,12 @@
       },
       {
         "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-周飞舟、",
+        "target": "concept-产权两级构造",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-温铁军_1999_半个世纪的农村制度变迁",
+        "target": "concept-梁漱溟",
         "type": "has_concept"
       },
       {
@@ -2097,27 +2538,12 @@
       },
       {
         "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-制度费用",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-两田制",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-产权两级构造",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-贺雪峰",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-温铁军_1999_半个世纪的农村制度变迁",
         "target": "concept-吴毅",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-温铁军_1999_半个世纪的农村制度变迁",
+        "target": "concept-城乡二元结构",
         "type": "has_concept"
       },
       {
@@ -2127,12 +2553,22 @@
       },
       {
         "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-张静",
+        "target": "concept-渠敬东",
         "type": "has_concept"
       },
       {
         "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-两权分离",
+        "target": "concept-小农村社经济",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-温铁军_1999_半个世纪的农村制度变迁",
+        "target": "concept-制度费用",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-温铁军_1999_半个世纪的农村制度变迁",
+        "target": "concept-贺雪峰",
         "type": "has_concept"
       },
       {
@@ -2142,12 +2578,17 @@
       },
       {
         "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-梁漱溟",
+        "target": "concept-周飞舟、",
         "type": "has_concept"
       },
       {
         "source": "article-温铁军_1999_半个世纪的农村制度变迁",
-        "target": "concept-渠敬东",
+        "target": "concept-张静",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-温铁军_1999_半个世纪的农村制度变迁",
+        "target": "concept-两田制",
         "type": "has_concept"
       },
       {
@@ -2167,12 +2608,47 @@
       },
       {
         "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-压力型体制",
+        "target": "concept-韦伯",
         "type": "has_concept"
       },
       {
         "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-运动式治理",
+        "target": "concept-行政科层化",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-经营城市",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-分税制",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-渠敬东",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-土地财政",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-应星",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-渠敬东、周飞舟",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-周飞舟",
         "type": "has_concept"
       },
       {
@@ -2187,62 +2663,7 @@
       },
       {
         "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-行政发包制",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-分税制、",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-财政包干制",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
         "target": "concept-韦伯式官僚制",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-经营城市",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-韦伯",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-技术治理",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-应星",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-土地财政",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-渠敬东",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-周飞舟",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-分税制",
         "type": "has_concept"
       },
       {
@@ -2257,7 +2678,27 @@
       },
       {
         "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-渠敬东、周飞舟",
+        "target": "concept-技术治理",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-双轨制、",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-行政发包制",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-压力型体制",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
+        "target": "concept-运动式治理",
         "type": "has_concept"
       },
       {
@@ -2267,12 +2708,12 @@
       },
       {
         "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-行政科层化",
+        "target": "concept-分税制、",
         "type": "has_concept"
       },
       {
         "source": "article-渠敬东_周飞舟_应星_2009_从总体支配到技术治理",
-        "target": "concept-双轨制、",
+        "target": "concept-财政包干制",
         "type": "has_concept"
       },
       {
@@ -2282,7 +2723,12 @@
       },
       {
         "source": "article-渠敬东_2012_项目制",
-        "target": "concept-压力型体制",
+        "target": "concept-周雪光",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-渠敬东_2012_项目制",
+        "target": "concept-基层政府间共谋现象",
         "type": "has_concept"
       },
       {
@@ -2292,7 +2738,7 @@
       },
       {
         "source": "article-渠敬东_2012_项目制",
-        "target": "concept-锦标赛体制",
+        "target": "concept-压力型体制",
         "type": "has_concept"
       },
       {
@@ -2307,12 +2753,7 @@
       },
       {
         "source": "article-渠敬东_2012_项目制",
-        "target": "concept-周雪光",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-渠敬东_2012_项目制",
-        "target": "concept-基层政府间共谋现象",
+        "target": "concept-锦标赛体制",
         "type": "has_concept"
       },
       {
@@ -2322,7 +2763,12 @@
       },
       {
         "source": "article-费孝通_1983_小城镇大问题",
-        "target": "concept-周其仁",
+        "target": "concept-陆学艺",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-费孝通_1983_小城镇大问题",
+        "target": "concept-沈关宝",
         "type": "has_concept"
       },
       {
@@ -2337,27 +2783,7 @@
       },
       {
         "source": "article-费孝通_1983_小城镇大问题",
-        "target": "concept-赵佳佳",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-费孝通_1983_小城镇大问题",
-        "target": "concept-陆学艺",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-费孝通_1983_小城镇大问题",
-        "target": "concept-张江华",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-费孝通_1983_小城镇大问题",
-        "target": "concept-黄祖辉",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-费孝通_1983_小城镇大问题",
-        "target": "concept-概念",
+        "target": "concept-周其仁",
         "type": "has_concept"
       },
       {
@@ -2367,7 +2793,122 @@
       },
       {
         "source": "article-费孝通_1983_小城镇大问题",
-        "target": "concept-沈关宝",
+        "target": "concept-概念",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-费孝通_1983_小城镇大问题",
+        "target": "concept-黄祖辉",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-费孝通_1983_小城镇大问题",
+        "target": "concept-赵佳佳",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-费孝通_1983_小城镇大问题",
+        "target": "concept-张江华",
+        "type": "has_concept"
+      },
+      {
+        "source": "author-折晓叶",
+        "target": "article-折晓叶_1996_村庄边界的多元化",
+        "type": "authored"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-就地工业化",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-吴毅",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-渠敬东",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-村籍制度",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-周飞舟、",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-经济边界开放",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-李培林",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-张静",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-陈婴婴",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-社会边界封闭",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-施坚雅",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-村庄边界",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-村庄合作主义",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-中间社区",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-超级村庄",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-城乡协同",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-黄宗智",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-费孝通",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-折晓叶_1996_村庄边界的多元化",
+        "target": "concept-温铁军",
         "type": "has_concept"
       },
       {
@@ -2377,12 +2918,12 @@
       },
       {
         "source": "article-周雪光_2008_基层政府间的共谋现象",
-        "target": "concept-压力型体制",
+        "target": "concept-目标责任制",
         "type": "has_concept"
       },
       {
         "source": "article-周雪光_2008_基层政府间的共谋现象",
-        "target": "concept-目标责任制",
+        "target": "concept-周雪光",
         "type": "has_concept"
       },
       {
@@ -2397,27 +2938,27 @@
       },
       {
         "source": "article-周雪光_2008_基层政府间的共谋现象",
-        "target": "concept-运动式治理",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-周雪光_2008_基层政府间的共谋现象",
-        "target": "concept-简约治理",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-周雪光_2008_基层政府间的共谋现象",
-        "target": "concept-周雪光",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-周雪光_2008_基层政府间的共谋现象",
         "target": "concept-黄宗智",
         "type": "has_concept"
       },
       {
         "source": "article-周雪光_2008_基层政府间的共谋现象",
+        "target": "concept-压力型体制",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-周雪光_2008_基层政府间的共谋现象",
+        "target": "concept-运动式治理",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-周雪光_2008_基层政府间的共谋现象",
         "target": "concept-渠敬东",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-周雪光_2008_基层政府间的共谋现象",
+        "target": "concept-简约治理",
         "type": "has_concept"
       },
       {
@@ -2432,22 +2973,12 @@
       },
       {
         "source": "article-行政发包制",
+        "target": "concept-周雪光",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-行政发包制",
         "target": "concept-压力型体制",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-行政发包制",
-        "target": "concept-基层政府间的共谋现象",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-行政发包制",
-        "target": "concept-周黎安",
-        "type": "has_concept"
-      },
-      {
-        "source": "article-行政发包制",
-        "target": "concept-锦标赛体制",
         "type": "has_concept"
       },
       {
@@ -2457,21 +2988,31 @@
       },
       {
         "source": "article-行政发包制",
+        "target": "concept-周黎安",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-行政发包制",
         "target": "concept-简约治理",
         "type": "has_concept"
       },
       {
         "source": "article-行政发包制",
-        "target": "concept-周雪光",
+        "target": "concept-基层政府间的共谋现象",
+        "type": "has_concept"
+      },
+      {
+        "source": "article-行政发包制",
+        "target": "concept-锦标赛体制",
         "type": "has_concept"
       }
     ]
   },
   "metadata": {
-    "generated_at": "2026-03-10T13:31:48.573774",
-    "total_articles": 6,
+    "generated_at": "2026-03-10T14:00:07.897960",
+    "total_articles": 7,
     "preserved_articles": 3,
-    "total_concepts": 53,
-    "total_authors": 7
+    "total_concepts": 66,
+    "total_authors": 8
   }
 }
