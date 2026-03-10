@@ -1447,7 +1447,7 @@
             <tr>
                 <td>真实模型</td>
                 <td>-</td>
-                <td>10.00</td>
+                <td>7.00</td>
                 <td>-</td>
                 <td style="color: green;">✓ 基准</td>
             </tr>
@@ -1485,7 +1485,7 @@
         <h3>📈 不同模型的估计系数对比</h3>
         <div id="coefComparisonPlot" style="width:100%; height:400px;"></div>
         <p style="color: #666; font-size: 12px;">
-            绿线=真实效应（10）。观察不同控制组合如何偏离真实值。
+            绿线=真实效应（7）。观察不同控制组合如何偏离真实值。
         </p>
     </div>
 
@@ -1583,35 +1583,45 @@
     <!-- JavaScript for Bad Controls Simulation -->
     <script>
         // Bad Controls Simulation
+        // 真实因果效应设定：
+        // 教育对收入的直接效应 = 3
+        // 教育对职业的效应 = 2，职业对收入的效应 = 2
+        // 因此，总效应 = 3 + 2*2 = 7
+        const TRUE_EFFECT = 7;
+        
         function generateEducationData() {
             let n = 1000;
             let ability = [], familyBg = [], education = [], occupation = [], 
                 network = [], location = [], income = [];
             
             for(let i = 0; i < n; i++) {
-                // 1. 生成混淆变量（能力和家庭背景）
-                let abi = 50 + 10 * (Math.random() - 0.5) * 2;
-                let fam = 50 + 10 * (Math.random() - 0.5) * 2;
+                // 1. 生成混淆变量（标准化处理，便于理解）
+                // 能力：影响教育和收入
+                let abi = (Math.random() - 0.5) * 2;  // ~U(-1, 1)
+                // 家庭背景：也影响教育
+                let fam = (Math.random() - 0.5) * 2;
                 
                 // 2. 教育受能力和家庭背景影响
-                let edu = 12 + 0.3 * abi + 0.2 * fam + 5 * (Math.random() - 0.5);
+                let edu = 0.5 * abi + 0.3 * fam + 0.5 * (Math.random() - 0.5);
                 
-                // 3. 职业受教育和能力影响（中介变量）
-                let occ = 30 + 0.5 * edu + 0.2 * abi + 10 * (Math.random() - 0.5);
+                // 3. 职业：纯中介变量（只受教育影响）
+                // 教育 → 职业 → 收入
+                let occ = 2.0 * edu + 0.5 * (Math.random() - 0.5);
                 
-                // 4. 社交网络受教育和收入影响（对撞变量）- 先临时计算收入
-                let inc_temp = 30 + 0.4 * edu + 0.3 * occ + 0.3 * abi + 20 * (Math.random() - 0.5);
-                let net = 40 + 0.3 * edu + 0.002 * inc_temp + 10 * (Math.random() - 0.5);
+                // 4. 收入：受教育和职业影响（同时能力作为混淆变量）
+                // 真实模型：收入 = 5 + 3*教育 + 2*职业 + 1.5*能力 + 误差
+                // 总效应 = 3（直接）+ 2*2（通过职业）= 7
+                let inc = 5 + 3 * edu + 2 * occ + 1.5 * abi + (Math.random() - 0.5);
                 
-                // 5. 地理位置的M-偏倚结构
-                let u1 = abi + 5 * (Math.random() - 0.5);  // 与能力相关的因素
-                let u2 = 30 + 0.5 * (inc_temp - 50) + 10 * (Math.random() - 0.5);  // 与收入相关的因素
-                let loc = 50 + 0.4 * u1 + 0.3 * u2 + 10 * (Math.random() - 0.5);
+                // 5. 社交网络：对撞变量（被教育和收入共同影响）
+                // 教育 → 社交网络 ← 收入
+                let net = 1.0 * edu + 0.5 * inc + 0.5 * (Math.random() - 0.5);
                 
-                // 6. 真实收入（总效应 = 10）
-                // 注意：职业(occ)不直接影响收入，它只是教育影响收入的机制（纯中介）
-                // 这样设计使得：控制职业后会阻断因果路径，估计从10降到较低值
-                let inc = 30 + 10 * (edu - 12) + 0.5 * abi + 20 * (Math.random() - 0.5);
+                // 6. 地理位置：M-偏倚结构
+                // 能力 → 地理位置 ← 收入（通过u1, u2）
+                let u1 = abi + 0.3 * (Math.random() - 0.5);  // 与能力相关
+                let u2 = 0.5 * inc + 0.3 * (Math.random() - 0.5);  // 与收入相关
+                let loc = 0.5 * u1 + 0.5 * u2 + 0.3 * (Math.random() - 0.5);
                 
                 ability.push(abi);
                 familyBg.push(fam);
@@ -1802,12 +1812,12 @@
             
             // 更新显示
             document.getElementById('naiveCoef').textContent = naiveCoef.toFixed(2);
-            document.getElementById('naiveBias').textContent = (naiveCoef - 10).toFixed(2);
+            document.getElementById('naiveBias').textContent = (naiveCoef - TRUE_EFFECT).toFixed(2);
             document.getElementById('naiveEval').innerHTML = '<span style="color: orange;">有偏（遗漏混淆）</span>';
             
             document.getElementById('currentControls').textContent = controlNames.length > 0 ? controlNames.join(", ") : "无";
             document.getElementById('currentCoef').textContent = currentCoef.toFixed(2);
-            let bias = currentCoef - 10;
+            let bias = currentCoef - TRUE_EFFECT;
             document.getElementById('currentBias').textContent = (bias > 0 ? "+" : "") + bias.toFixed(2);
             
             // 评价
@@ -1922,7 +1932,7 @@
 
         function updateCoefComparisonPlot(naiveCoef, currentCoef, controlNames) {
             let models = ['真实效应', '朴素模型\n(无控制)', '当前模型'];
-            let values = [10, naiveCoef, currentCoef];
+            let values = [TRUE_EFFECT, naiveCoef, currentCoef];
             let colors = ['green', 'orange', 'blue'];
             
             let trace = {
@@ -1935,17 +1945,17 @@
             };
             
             let layout = {
-                title: '估计系数对比（真实值 = 10）',
+                title: '估计系数对比（真实值 = 7）',
                 yaxis: {
                     title: '教育效应估计值',
-                    range: [0, 15]
+                    range: [0, 12]
                 },
                 shapes: [{
                     type: 'line',
                     x0: -0.5,
                     x1: 2.5,
-                    y0: 10,
-                    y1: 10,
+                    y0: TRUE_EFFECT,
+                    y1: TRUE_EFFECT,
                     line: {
                         color: 'green',
                         width: 3,
