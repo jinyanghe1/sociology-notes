@@ -10,6 +10,19 @@
     
     <!-- MathJax -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <style>
@@ -613,17 +626,17 @@
                 
                 <div class="formula-display">
                     <p><strong>负二项分布的概率质量函数：</strong></p>
-                    <p style="margin-top: 16px;">$$P(Y=y) = \\frac{\\Gamma(y + \\alpha^{-1})}{\\Gamma(y+1)\\Gamma(\\alpha^{-1})} \\left(\\frac{\\alpha^{-1}}{\\alpha^{-1}+\\mu}\\right)^{\\alpha^{-1}} \\left(\\frac{\\mu}{\\alpha^{-1}+\\mu}\\right)^y$$</p>
+                    <p style="margin-top: 16px;">\[P(Y=y) = \frac{\Gamma(y + \alpha^{-1})}{\Gamma(y+1)\Gamma(\alpha^{-1})} \left(\frac{\alpha^{-1}}{\alpha^{-1}+\mu}\right)^{\alpha^{-1}} \left(\frac{\mu}{\alpha^{-1}+\mu}\right)^y\]</p>
                     <p style="margin-top: 16px;"><strong>均值-方差关系：</strong></p>
-                    <p>$$E(Y) = \\mu, \\quad Var(Y) = \\mu + \\alpha\\mu^2$$</p>
-                    <p style="margin-top: 16px; color: #94a3b8;">其中 $\\alpha$ 是离散参数。当 $\\alpha = 0$ 时，退化为泊松分布。</p>
+                    <p>\[E(Y) = \mu, \quad Var(Y) = \mu + \alpha\mu^2\]</p>
+                    <p style="margin-top: 16px; color: #94a3b8;">其中 \(\alpha\) 是离散参数。当 \(\alpha = 0\) 时，退化为泊松分布。</p>
                 </div>
                 
                 <div class="formula-display">
                     <p><strong>回归模型（对数链接函数）：</strong></p>
-                    <p style="margin-top: 16px;">$$\\log(\\mu_i) = \\beta_0 + \\beta_1 X_{1i} + \\beta_2 X_{2i} + ... + \\beta_k X_{ki}$$</p>
+                    <p style="margin-top: 16px;">\[\log(\mu_i) = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + ... + \beta_k X_{ki}\]</p>
                     <p style="margin-top: 16px;"><strong>具体到本研究（执法效率）：</strong></p>
-                    <p style="margin-top: 8px;">$$\\log(\\text{Efficiency}_i) = \\beta_0 + \\beta_1 \\text{Marketization}_i + \\beta_2 \\text{Period}_i + \\beta_3 \\text{Political}_i + \\gamma \\text{Controls}_i + \\epsilon_i$$</p>
+                    <p style="margin-top: 8px;">\[\log(\text{Efficiency}_i) = \beta_0 + \beta_1 \text{Marketization}_i + \beta_2 \text{Period}_i + \beta_3 \text{Political}_i + \gamma \text{Controls}_i + \epsilon_i\]</p>
                 </div>
                 
                 <div class="chart-container">
