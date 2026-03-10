@@ -1461,7 +1461,7 @@
                 <td id="currentEval">-</td>
             </tr>
         </table>
-        <p id="interpretation" style="margin-top: 15px; font-size: 16px;"></p>
+        <p id="badControlInterpretation" style="margin-top: 15px; font-size: 16px;"></p>
     </div>
 
     <!-- 因果图可视化 -->
@@ -1750,7 +1750,7 @@
             document.getElementById('currentEval').innerHTML = `<span style="color: ${evalColor};">${evalText}</span>`;
             
             // 解释
-            let interp = document.getElementById('interpretation');
+            let interp = document.getElementById('badControlInterpretation');
             if(controlOccupation) {
                 interp.innerHTML = "<strong>⚠️ 注意：</strong>你控制了<strong>中介变量</strong>（职业），这会阻断「教育→职业→收入」的因果路径，导致<strong>低估</strong>教育的总效应。";
             } else if(controlNetwork) {
