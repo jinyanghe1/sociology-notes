@@ -655,9 +655,9 @@
         }
 
         // Initialize
-        window.onload = function() {
+        document.addEventListener('DOMContentLoaded', function() {
             updateSimulation();
-        };
+        });
     </script>
 
     <hr class="section-divider">
@@ -1158,6 +1158,11 @@
         });
         document.getElementById('selectionSlider').addEventListener('input', function() {
             document.getElementById('selectionValue').textContent = this.value;
+        });
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(updatePotentialOutcomes, 200);
         });
     </script>
 
@@ -1961,10 +1966,14 @@
             Plotly.newPlot('coefComparisonPlot', [trace], layout);
         }
 
-        // 初始化
-        window.addEventListener('load', function() {
-            updateBadControlSim();
-        });
+        // 初始化 - 确保DOM和Plotly都加载完成
+        if(document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(updateBadControlSim, 100);
+            });
+        } else {
+            setTimeout(updateBadControlSim, 100);
+        }
     </script>
 
     <!-- 总结 -->
