@@ -1604,7 +1604,8 @@
                 let loc = 50 + 0.4 * u1 + 0.3 * u2 + 10 * (Math.random() - 0.5);
                 
                 // 6. 真实收入（总效应 = 10）
-                let inc = 30 + 10 * (edu - 12) / 4 + 5 * occ + 0.5 * abi + 20 * (Math.random() - 0.5);
+                // 教育效应：每增加1年教育，收入增加10（标准化后）
+                let inc = 30 + 10 * (edu - 12) + 5 * occ + 0.5 * abi + 20 * (Math.random() - 0.5);
                 
                 ability.push(abi);
                 familyBg.push(fam);
@@ -1656,26 +1657,104 @@
                 XtY[i] = sum;
             }
             
-            // 简单的矩阵求逆（仅适用于2x2或3x3）
-            function invert2x2(m) {
-                let det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
-                return [
-                    [m[1][1] / det, -m[0][1] / det],
-                    [-m[1][0] / det, m[0][0] / det]
-                ];
+            // 高斯-约旦消元法求逆矩阵
+            function invertMatrix(matrix) {
+                let n = matrix.length;
+                // 创建增广矩阵 [A|I]
+                let aug = [];
+                for(let i = 0; i < n; i++) {
+                    aug[i] = [];
+                    for(let j = 0; j < n; j++) {
+                        aug[i][j] = matrix[i][j];
+                    }
+                    for(let j = 0; j < n; j++) {
+                        aug[i][n + j] = (i === j) ? 1 : 0;
+                    }
+                }
+                
+                // 前向消元
+                for(let i = 0; i < n; i++) {
+                    // 选主元
+                    let maxVal = Math.abs(aug[i][i]);
+                    let maxRow = i;
+                    for(let k = i + 1; k < n; k++) {
+                        if(Math.abs(aug[k][i]) > maxVal) {
+                            maxVal = Math.abs(aug[k][i]);
+                            maxRow = k;
+                        }
+                    }
+                    // 交换行
+                    if(maxRow !== i) {
+                        let temp = aug[i];
+                        aug[i] = aug[maxRow];
+                        aug[maxRow] = temp;
+                    }
+                    
+                    // 检查奇异矩阵
+                    if(Math.abs(aug[i][i]) < 1e-10) {
+                        console.warn("Matrix is singular or near-singular");
+                        return null;
+                    }
+                    
+                    // 归一化主元行
+                    let pivot = aug[i][i];
+                    for(let j = 0; j < 2 * n; j++) {
+                        aug[i][j] /= pivot;
+                    }
+                    
+                    // 消去其他行
+                    for(let k = 0; k < n; k++) {
+                        if(k !== i) {
+                            let factor = aug[k][i];
+                            for(let j = 0; j < 2 * n; j++) {
+                                aug[k][j] -= factor * aug[i][j];
+                            }
+                        }
+                    }
+                }
+                
+                // 提取逆矩阵
+                let inv = [];
+                for(let i = 0; i < n; i++) {
+                    inv[i] = [];
+                    for(let j = 0; j < n; j++) {
+                        inv[i][j] = aug[i][n + j];
+                    }
+                }
+                return inv;
             }
             
-            // 对于更大的矩阵，这里简化处理
-            // 实际应用中应使用更稳定的算法
+            // 矩阵乘法
+            function multiplyMatrix(A, B) {
+                let rowsA = A.length;
+                let colsA = A[0].length;
+                let rowsB = B.length;
+                let C = [];
+                for(let i = 0; i < rowsA; i++) {
+                    C[i] = [];
+                    for(let j = 0; j < colsB; j++) {
+                        let sum = 0;
+                        for(let k = 0; k < colsA; k++) {
+                            sum += A[i][k] * B[k][j];
+                        }
+                        C[i][j] = sum;
+                    }
+                }
+                return C;
+            }
+            
+            // 计算 beta = (X'X)^(-1) X'Y
+            let XtX_inv = invertMatrix(XtX);
             let beta;
-            if(k === 2) {
-                let inv = invert2x2(XtX);
-                beta = [inv[0][0] * XtY[0] + inv[0][1] * XtY[1],
-                       inv[1][0] * XtY[0] + inv[1][1] * XtY[1]];
+            if(XtX_inv) {
+                // XtY 是 k x 1 矩阵，需要转换
+                let XtY_mat = XtY.map(y => [y]);
+                let beta_mat = multiplyMatrix(XtX_inv, XtY_mat);
+                beta = beta_mat.map(row => row[0]);
             } else {
-                // 简化：使用迭代方法或假设正交性
-                // 这里仅作演示，实际应用需要完整的矩阵运算
-                beta = [0, 2.5];  // 简化估计
+                // 如果矩阵奇异，使用简化估计
+                beta = new Array(k).fill(0);
+                beta[1] = 2.5;
             }
             
             return beta[1];  // 返回教育系数
