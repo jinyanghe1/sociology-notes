@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TWFE误差来源可视化：新农合案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title .icon {
+            font-size: 1.2em;
+        }
+        
+        /* 场景设定卡片 */
+        .scenario-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .province-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .province-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .province-card.a { border-left-color: #e74c3c; }
+        .province-card.b { border-left-color: #f39c12; }
+        .province-card.c { border-left-color: #3498db; }
+        
+        .province-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .province-card .year {
+            display: inline-block;
+            background: rgba(0,0,0,0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .effect-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .province-card.a .effect-value { color: #e74c3c; }
+        .province-card.b .effect-value { color: #f39c12; }
+        .province-card.c .effect-value { color: #3498db; }
+        
+        /* 代码对比区域 */
+        .code-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .code-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .code-header {
+            background: #333;
+            color: white;
+            padding: 12px 15px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .code-header .status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .code-header .status.error { background: #e74c3c; }
+        .code-header .status.ok { background: #2ecc71; }
+        
+        .code-content {
+            padding: 20px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        
+        .code-content .comment { color: #6a9955; }
+        .code-content .keyword { color: #569cd6; }
+        .code-content .string { color: #ce9178; }
+        .code-content .number { color: #b5cea8; }
+        .code-content .function { color: #dcdcaa; }
+        .code-content .warning { 
+            background: rgba(255, 193, 7, 0.2);
+            border-left: 3px solid #ffc107;
+            padding: 2px 5px;
+            display: block;
+            margin: 5px 0;
+        }
+        .code-content .error { 
+            background: rgba(231, 76, 60, 0.2);
+            border-left: 3px solid #e74c3c;
+            padding: 2px 5px;
+            display: block;
+            margin: 5px 0;
+        }
+        
+        /* 可视化对比图 */
+        .comparison-viz {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #e74c3c 33%, #f39c12 33%, #f39c12 66%, #3498db 66%);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        
+        .timeline-point {
+            position: relative;
+            z-index: 1;
+            background: white;
+            border: 4px solid;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-point.red { border-color: #e74c3c; color: #e74c3c; }
+        .timeline-point.orange { border-color: #f39c12; color: #f39c12; }
+        .timeline-point.blue { border-color: #3498db; color: #3498db; }
+        
+        .timeline-point small {
+            font-size: 0.7em;
+            font-weight: normal;
+        }
+        
+        /* 问题演示区域 */
+        .problem-demo {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .comparison-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .comparison-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-item .label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .comparison-item .value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .comparison-item .arrow {
+            font-size: 2em;
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+        
+        /* 伪代码动画 */
+        .pseudo-code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Consolas', monospace;
+            line-height: 1.8;
+        }
+        
+        .pseudo-code-block .line {
+            padding: 5px 0;
+            border-left: 3px solid transparent;
+            padding-left: 15px;
+            margin-left: -15px;
+        }
+        
+        .pseudo-code-block .line.highlight {
+            background: rgba(231, 76, 60, 0.2);
+            border-left-color: #e74c3c;
+        }
+        
+        .pseudo-code-block .line.correct {
+            background: rgba(46, 204, 113, 0.2);
+            border-left-color: #2ecc71;
+        }
+        
+        /* 问答区域 */
+        .qa-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .qa-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .qa-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .question {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .question::before {
+            content: 'Q';
+            background: #667eea;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            flex-shrink: 0;
+        }
+        
+        .answer {
+            margin-left: 35px;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .answer::before {
+            content: 'A: ';
+            font-weight: bold;
+            color: #2ecc71;
+        }
+        
+        /* 提示框 */
+        .tip-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .tip-box .icon {
+            font-size: 1.5em;
+        }
+        
+        /* 公式展示 */
+        .formula-box {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        
+        .formula-box .formula {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            margin: 15px 0;
+            font-size: 1.3em;
+        }
+        
+        .formula-box .explanation {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+        
+        /* 底部 */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        /* 标签 */
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin: 5px;
+        }
+        
+        .tag.danger { background: #ffebee; color: #c62828; }
+        .tag.warning { background: #fff3e0; color: #ef6c00; }
+        .tag.success { background: #e8f5e9; color: #2e7d32; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>🎯 TWFE误差来源可视化</h1>
+            <p>以新农合案例形象理解双重固定效应回归的"低估陷阱"</p>
+            <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                基于：林梦芸、徐阳、郭汝飞、易君健《在模型误设的统一框架下理解双重差分方法的最新发展》<br>
+                《管理世界》2025年第6期
+            </p>
+        </div>
+        
+        <div class="content">
+            <!-- 场景设定 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">🎬</span>
+                    场景设定：三省渐进试点
+                </h2>
+                <p style="margin-bottom: 20px; color: #555;">
+                    假设中国三个省份推行<strong>新农合</strong>（新型农村合作医疗），试点时间不同。
+                    我们观察的是<strong>居民健康水平</strong>的变化。
+                </p>
+                
+                <div class="scenario-cards">
+                    <div class="province-card a">
+                        <h3>🔴 A省（最早试点）</h3>
+                        <span class="year">2003年启动</span>
+                        <p>处理前健康水平：60分</p>
+                        <div class="effect-value">+15分</div>
+                        <p>真实健康改善效应（最强）</p>
+                    </div>
+                    <div class="province-card b">
+                        <h3>🟠 B省（中等试点）</h3>
+                        <span class="year">2006年启动</span>
+                        <p>处理前健康水平：60分</p>
+                        <div class="effect-value">+10分</div>
+                        <p>真实健康改善效应（中等）</p>
+                    </div>
+                    <div class="province-card c">
+                        <h3>🔵 C省（尚未试点）</h3>
+                        <span class="year">2009年仍未启动</span>
+                        <p>健康水平：60分</p>
+                        <div class="effect-value">0分</div>
+                        <p>真实健康改善效应（无）</p>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <span class="icon">💡</span>
+                    <div>
+                        <strong>关键事实：</strong>A省和B省的新农合<strong>确实有效</strong>，居民健康分别改善15分和10分。
+                        但TWFE回归可能告诉我们一个完全不同的故事...
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 代码对比 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">💻</span>
+                    代码对比：正确的DID vs 错误的TWFE
+                </h2>
+                
+                <div class="code-comparison">
+                    <!-- 错误的TWFE -->
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="status error"></span>
+                            <span>❌ 错误的TWFE回归（导致低估）</span>
+                        </div>
+                        <div class="code-content">
+<span class="comment"># TWFE回归：隐含的致命假设</span>
+<span class="function">reghdfe</span> health <span class="keyword">treated</span>, \
+    <span class="function">absorb</span>(province year) \
+    <span class="function">cluster</span>(province)
+
+<span class="error">⚠️ 问题：自动使用所有省份作为控制组</span>
+<span class="error">⚠️ 包括：已经试点的A省被用作B省的"控制组"</span>
+
+<span class="comment"># TWFE隐含的对比：</span>
+<span class="comment"># 对比1: A vs C ✓ 合理（已处理 vs 未处理）</span>
+<span class="comment"># 对比2: B vs C ✓ 合理（已处理 vs 未处理）</span>
+<span class="comment"># 对比3: B vs A ✗ 禁止的对比！</span>
+<span class="comment">#        （晚处理 vs 早处理）</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 正确的做法 -->
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="status ok"></span>
+                            <span>✅ 正确的Callaway-Sant'Anna估计</span>
+                        </div>
+                        <div class="code-content">
+<span class="comment"># 只用"尚未处理"或"永不处理"的组作为控制组</span>
+<span class="function">csdid</span> health <span class="keyword">treated</span>, \
+    <span class="function">ivar</span>(province) <span class="function">time</span>(year) \
+    <span class="function">gvar</span>(first_treat_year) \
+    <span class="function">method</span>(drimp)
+
+<span class="comment"># 正确的对比：</span>
+<span class="comment"># B省(2006处理) vs C省(未处理) ✓</span>
+<span class="comment"># 不使用A省作为控制组！</span>
+
+<span class="correct">✓ 避免"禁止的对比"（早处理vs晚处理）</span>
+<span class="correct">✓ 估计的是有意义的加权平均</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题演示 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">🔍</span>
+                    "禁止的对比"如何产生
+                </h2>
+                
+                <div class="problem-demo">
+                    <h3 style="margin-bottom: 20px; text-align: center;">对比3的问题：B省 vs A省</h3>
+                    
+                    <div class="timeline">
+                        <div class="timeline-point red">
+                            <div>2003</div>
+                            <small>A省试点</small>
+                        </div>
+                        <div class="timeline-point orange">
+                            <div>2006</div>
+                            <small>B省试点</small>
+                        </div>
+                        <div class="timeline-point blue">
+                            <div>2009</div>
+                            <small>观察期</small>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-row">
+                        <div class="comparison-item">
+                            <div class="label">B省健康变化<br>(2006→2009)</div>
+                            <div class="value" style="color: #2ecc71;">+10分</div>
+                            <div>真实改善</div>
+                        </div>
+                        <div class="comparison-item">
+                            <div class="label">A省健康变化<br>(2006→2009)</div>
+                            <div class="value" style="color: #3498db;">+5分</div>
+                            <div>持续受益</div>
+                        </div>
+                        <div class="comparison-item">
+                            <div class="label">TWFE计算的"效应"</div>
+                            <div class="value" style="color: #e74c3c;">+5分</div>
+                            <div class="arrow">⬇️ 低估50%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <div>DID估计 = (B省变化) - (A省"控制组"变化)</div>
+                        <div class="formula">DID = (+10) - (+5) = +5 ≠ 真实的+10</div>
+                        <div class="explanation">
+                            A省不是真正的"控制组"！它在2006-2009年间仍在享受新农合，健康持续改善。<br>
+                            TWFE<strong>错误地</strong>把A省的持续进步当作"基准趋势"从B省效应中减去。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 伪代码解释 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">📝</span>
+                    伪代码：TWFE的"魔术"如何欺骗我们
+                </h2>
+                
+                <div class="pseudo-code-block">
+<div class="line"><span class="comment"># ========================================</span></div>
+<div class="line"><span class="comment"># TWFE回归的"自动对比"机制（伪代码）</span></div>
+<div class="line"><span class="comment"># ========================================</span></div>
+<div class="line"></div>
+<div class="line"><span class="keyword">function</span> <span class="function">TWFE_Estimate</span>(data):</div>
+<div class="line">    contrasts = []</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment"># TWFE自动构建所有可能的2×2对比</span></div>
+<div class="line">    <span class="keyword">for</span> each treated_group <span class="keyword">in</span> data:</div>
+<div class="line">        <span class="keyword">for</span> each control_candidate <span class="keyword">in</span> data:</div>
+<div class="line">            </div>
+<div class="line highlight">            <span class="comment"># ⚠️ 问题：TWFE不加区分地使用所有"对照组"</span></div>
+<div class="line highlight">            <span class="keyword">if</span> control_candidate <span class="keyword">is not</span> treated_group:</div>
+<div class="line highlight">                </div>
+<div class="line highlight">                <span class="comment"># 错误！早期处理组被当作后期处理组的"控制组"</span></div>
+<div class="line highlight">                <span class="keyword">if</span> control_candidate.already_treated:</div>
+<div class="line highlight">                    <span class="comment"># 这是"禁止的对比"！</span></div>
+<div class="line highlight">                    weight = calculate_weight()</div>
+<div class="line highlight">                    contrasts.append({</div>
+<div class="line highlight">                        'treatment': treated_group,</div>
+<div class="line highlight">                        'control': control_candidate,  <span class="comment"># ❌ 错误的控制组</span></div>
+<div class="line highlight">                        'weight': weight,  <span class="comment"># 可能为负！</span></div>
+<div class="line highlight">                        'type': 'FORBIDDEN'  <span class="comment"># 禁止的对比</span></div>
+<div class="line highlight">                    })</div>
+<div class="line"></div>
+<div class="line">    <span class="comment"># 最终估计：所有对比的加权平均</span></div>
+<div class="line">    beta = sum(c.effect * c.weight <span class="keyword">for</span> c <span class="keyword">in</span> contrasts)</div>
+<div class="line">    </div>
+<div class="line highlight">    <span class="comment"># 悲剧：如果权重为负，真实效应被抵消</span></div>
+<div class="line highlight">    <span class="keyword">if</span> any(c.weight < 0 <span class="keyword">for</span> c <span class="keyword">in</span> contrasts):</div>
+<div class="line highlight">        print(<span class="string">"警告：存在负权重，估计可能无意义！"</span>)</div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">return</span> beta  <span class="comment"># 可能严重低估甚至符号相反</span></div>
+<div class="line"></div>
+<div class="line correct"><span class="comment"># ========================================</span></div>
+<div class="line correct"><span class="comment"># 正确的做法：Callaway-Sant'Anna</span></div>
+<div class="line correct"><span class="comment"># ========================================</span></div>
+<div class="line correct"></div>
+<div class="line correct"><span class="keyword">function</span> <span class="function">CS_Estimate</span>(data):</div>
+<div class="line correct">    <span class="comment"># 只用真正的控制组：尚未处理或永不处理</span></div>
+<div class="line correct">    valid_controls = [g <span class="keyword">for</span> g <span class="keyword">in</span> data <span class="keyword">if</span> g.never_treated]</div>
+<div class="line correct">    </div>
+<div class="line correct">    <span class="comment"># 排除"禁止的对比"</span></div>
+<div class="line correct">    <span class="keyword">for</span> treated_group <span class="keyword">in</span> data:</div>
+<div class="line correct">        <span class="keyword">for</span> control <span class="keyword">in</span> valid_controls:  <span class="comment"># ✓ 只使用有效控制组</span></div>
+<div class="line correct">            contrast = calculate_contrast(treated_group, control)</div>
+<div class="line correct">            <span class="comment"># 权重保证非负且和为1（凸组合）</span></div>
+<div class="line correct">            </div>
+<div class="line correct">    <span class="keyword">return</span> meaningful_average  <span class="comment"># 有意义的加权平均</span></div>
+</div>
+                
+                <div class="formula-box" style="margin-top: 30px;">
+                    <div><strong>核心公式对比</strong></div>
+                    <div class="formula">
+                        TWFE: β = Σ ω<sub>g,t</sub> × ATT(g,t) , 其中某些 ω<sub>g,t</sub> &lt; 0 ❌
+                    </div>
+                    <div class="formula" style="margin-top: 15px;">
+                        CS: ATT = Σ w<sub>g,t</sub> × ATT(g,t) , 其中所有 w<sub>g,t</sub> ≥ 0 且 Σw = 1 ✓
+                    </div>
+                    <div class="explanation">
+                        <strong>关键区别：</strong>Callaway-Sant'Anna保证权重非负（凸组合），
+                        而TWFE在交错处理情形下可能产生<strong>负权重</strong>，导致估计无意义。
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 可视化总结 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">📊</span>
+                    可视化总结：为什么健康改善被"抵消"了
+                </h2>
+                
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin: 20px 0;">
+                    <h3 style="text-align: center; margin-bottom: 25px;">TWFE估计的分解</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px; text-align: center;">
+                            <div style="font-size: 2em; margin-bottom: 10px;">40%</div>
+                            <div>A省 vs C省</div>
+                            <div style="font-size: 0.9em; opacity: 0.8; margin-top: 5px;">权重 × (+15)</div>
+                            <div style="margin-top: 10px; padding: 5px; background: rgba(46, 204, 113, 0.3); border-radius: 5px;">✓ 合理对比</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px; text-align: center;">
+                            <div style="font-size: 2em; margin-bottom: 10px;">40%</div>
+                            <div>B省 vs C省</div>
+                            <div style="font-size: 0.9em; opacity: 0.8; margin-top: 5px;">权重 × (+10)</div>
+                            <div style="margin-top: 10px; padding: 5px; background: rgba(46, 204, 113, 0.3); border-radius: 5px;">✓ 合理对比</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px; text-align: center;">
+                            <div style="font-size: 2em; margin-bottom: 10px;">20%</div>
+                            <div>B省 vs A省</div>
+                            <div style="font-size: 0.9em; opacity: 0.8; margin-top: 5px;">权重 × (+5)</div>
+                            <div style="margin-top: 10px; padding: 5px; background: rgba(231, 76, 60, 0.3); border-radius: 5px;">✗ 禁止对比</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 10px; text-align: center;">
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">
+                            TWFE估计 = 0.4×15 + 0.4×10 + 0.2×5 = <strong>+11分</strong>
+                        </div>
+                        <div style="font-size: 1.1em; opacity: 0.9;">
+                            真实平均效应 = (15+10)/2 = <strong>+12.5分</strong>
+                        </div>
+                        <div style="margin-top: 15px; font-size: 1.3em; color: #ffc107;">
+                            📉 低估幅度 = (12.5-11)/12.5 = <strong>12%</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 解决方案 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">🛠️</span>
+                    解决方案：如何避免TWFE陷阱
+                </h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div style="background: #e8f5e9; padding: 25px; border-radius: 10px; border-left: 5px solid #4caf50;">
+                        <h3 style="color: #2e7d32; margin-bottom: 15px;">1. Callaway-Sant'Anna</h3>
+                        <p>只用"尚未处理"或"永不处理"的组作为控制组，避免"早处理vs晚处理"的禁止对比。</p>
+                        <code style="display: block; margin-top: 10px; padding: 10px; background: white; border-radius: 5px;">csdid y d, ivar(id) time(t) gvar(g)</code>
+                    </div>
+                    <div style="background: #e3f2fd; padding: 25px; border-radius: 10px; border-left: 5px solid #2196f3;">
+                        <h3 style="color: #1565c0; margin-bottom: 15px;">2. Sun-Abraham</h3>
+                        <p>分离组别-时间特定效应，控制处理效应的动态变化，避免动态效应混杂。</p>
+                        <code style="display: block; margin-top: 10px; padding: 10px; background: white; border-radius: 5px;">eventstudyinteract y d, cohort(g) time(t)</code>
+                    </div>
+                    <div style="background: #fff3e0; padding: 25px; border-radius: 10px; border-left: 5px solid #ff9800;">
+                        <h3 style="color: #ef6c00; margin-bottom: 15px;">3. Bacon分解</h3>
+                        <p>诊断TWFE估计中各类对比的权重，识别"坏对比"的比例和影响。</p>
+                        <code style="display: block; margin-top: 10px; padding: 10px; background: white; border-radius: 5px;">bacondecomp y d, ddetail</code>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问答区域 -->
+            <div class="section qa-section">
+                <h2 class="section-title">
+                    <span class="icon">💬</span>
+                    问答区（持续更新）
+                </h2>
+                <p style="margin-bottom: 20px; color: #666;">
+                    以下是关于TWFE误差来源的讨论问答。后续问答将直接追加到此处。
+                </p>
+                
+                <div class="qa-item">
+                    <div class="question">
+                        为什么TWFE会把A省当作B省的控制组？这是程序bug吗？
+                    </div>
+                    <div class="answer">
+                        这不是程序bug，而是<strong>模型设定的问题</strong>。TWFE回归通过个体固定效应和时间固定效应来控制混淆因素，
+                        其数学结构会自动将所有"未同时期处理"的组纳入比较。在交错处理情形下，
+                        早期处理组在数学上满足"控制组"的定义（在特定时期未处理），
+                        但现实中它们已经受到处理影响，不再是"干净"的基准。
+                    </div>
+                </div>
+                
+                <div class="qa-item">
+                    <div class="question">
+                        如果所有省份的处理效应完全相同，TWFE还会低估吗？
+                    </div>
+                    <div class="answer">
+                        不会。TWFE的问题根源在于<strong>处理效应异质性</strong>。如果所有省份的新农合效果完全相同
+                       （A省+15，B省也是+15，没有差异），那么"禁止的对比"不会导致偏误，
+                        因为A省的持续进步和B省的新进步数值相同，相减后不影响估计。
+                        但现实世界中，处理效应几乎总是异质的（试点时间不同、执行力度不同、
+                        人口特征不同），因此TWFE的偏误普遍存在。
+                    </div>
+                </div>
+                
+                <div class="qa-item">
+                    <div class="question">
+                        我怎么知道自己的研究是否存在TWFE偏误？
+                    </div>
+                    <div class="answer">
+                        可以通过以下步骤诊断：
+                        <br><br>
+                        1. <strong>检查处理结构</strong>：如果你的处理是"交错式"（不同个体在不同时间开始处理），
+                        TWFE可能存在问题。
+                        <br><br>
+                        2. <strong>运行Bacon分解</strong>：使用<code>bacondecomp</code>命令查看TWFE估计中
+                        各类对比的权重。如果"早处理vs晚处理"（timing groups）占比过高，
+                        可能存在严重偏误。
+                        <br><br>
+                        3. <strong>检查负权重</strong>：使用<code>twowayfeweights</code>命令（de Chaisemartin & D'Haultfoeuille）
+                        直接检验是否存在负权重。
+                        <br><br>
+                        4. <strong>稳健性检验</strong>：使用Callaway-Sant'Anna或Sun-Abraham方法重新估计，
+                        对比结果是否与TWFE有显著差异。
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部 -->
+        <div class="footer">
+            <p>📚 参考资料：林梦芸、徐阳、郭汝飞、易君健（2025）</p>
+            <p>《在模型误设的统一框架下理解双重差分方法的最新发展》</p>
+            <p style="margin-top: 10px;">《管理世界》2025年第6期，第227-264页</p>
+            <p style="margin-top: 20px; opacity: 0.8;">
+                本页面为教学演示用途 | 
+                <a href="https://github.com/jinyanghe1/sociology-notes">GitHub Repository</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
